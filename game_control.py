@@ -15,7 +15,7 @@ if __name__ == '__main__':
         if score > 10:
             break
         distribute_resources(player.roll_dice())
-        ai.find_best_build()
+        ai.find_best_build(game_board.get_layout)
 
 
 
