@@ -15,16 +15,7 @@ class Player:
 
     def roll_dice(self):
         dice_roll = random.randint(1, 6) + random.randint(1, 6)
-        if dice_roll == 7:
-            self.move_robber()
-        else:
-            return
-
-    def move_robber(self):
-        if self.is_ai:
-            return ai.find_best_robber
-        else:
-            return input("Enter robber hex:")
+        return dice_roll
 
     def create_settlement(self, locations):
         if self.num_sheep > 0 and self.num_wheat > 0 and self.num_brick > 0 and self.num_wood > 0:
@@ -75,11 +66,9 @@ class Player:
                     print("Unavailable.")
                     return -1
 
-    def request_trade(self):
-        pass
-
-    def buy_card(self):
-        pass
-
-    def play_card(self):
-        pass
+    def receive_resources(self, sheep, wheat, wood, brick, ore):
+        self.num_sheep += sheep
+        self.num_wheat += wheat
+        self.num_wood += wood
+        self.num_brick += brick
+        self.num_ore += ore
