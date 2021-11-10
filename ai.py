@@ -1,5 +1,6 @@
 def find_best_robber():
     return None
 
-def find_best_build():
+
+def find_best_build(gameboard):
     return None
