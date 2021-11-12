@@ -13,7 +13,7 @@ def initialize_nodes():
         temp = []
         for line in nodestream:
             cv = line.split(",")
-            temp.append(hex.Node(cv[0], cv[1], cv[2], cv[3], cv[4], cv[5], 0))
+            temp.append(hex.Node(cv[0], cv[1], cv[2], cv[3] - 1, cv[4] - 1, cv[5] - 1, 0))
         return temp
 
 
@@ -22,7 +22,7 @@ def initialize_edges():
         temp = []
         for line in edgestream:
             cv = line.split(",")
-            temp.append(hex.Edge(cv[0], cv[1], 0))
+            temp.append(hex.Edge(cv[0] - 1, cv[1] - 1, 0))
         return temp
 
 
@@ -52,8 +52,14 @@ class GameBoard:
     def get_nodes(self):
         return self.nodes
 
-    def print_edges(self):
+    def get_edges(self):
         return self.edges
+
+    #loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
+    def find_available_settlements(self):
+        pass
+
+    def find
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):

@@ -13,8 +13,6 @@ def distribute_resources(roll):
 
 if __name__ == '__main__':
     game = game_board.GameBoard()
-    hexes = game.hexes
-    print(game.print_edges())
 
     #while True:
     #    score = game_board.calculate_score()
