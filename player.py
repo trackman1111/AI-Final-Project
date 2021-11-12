@@ -13,10 +13,6 @@ class Player:
         self.num_ore = 0
         self.score = 0
 
-    def roll_dice(self):
-        dice_roll = random.randint(1, 6) + random.randint(1, 6)
-        return dice_roll
-
     def create_settlement(self, locations):
         if self.num_sheep > 0 and self.num_wheat > 0 and self.num_brick > 0 and self.num_wood > 0:
             if len(locations == 0):
