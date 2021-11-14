@@ -1,42 +1,43 @@
+from networkx.readwrite.graphml import GraphML
 import torch
 import random
 import numpy as np
 from collections import deque
 from model import Linear_QNet, QTrainer
 from helper import plot
-import player
-import game
+from game_control import GamePlay,Player
+#import game
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
 LR = 0.001
 
-class Agent(player):
+class Agent():
 
     def __init__(self):
         self.n_games = 0
         self.epsilon = 0 # randomness
         self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft()
-        self.model = Linear_QNet(53, 256, 3)
+        self.model = Linear_QNet(180, 256, 3)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
 
 
-    def get_state(self, game):
+    def get_state(self, GamePlay):
          #https://www.youtube.com/playlist?list=PLqnslRFeH2UrDh7vUmJ60YrmWd64mTTKV
         
+        player = GamePlay.player
         state = [
-            #all possible settlement locations 
             
-            
-            
-            #all possible road locations
-            
-            
-            #all player points so 2 players
-            
-            
-            #all hexs with land type
+            player.settlements,
+            player.roads,
+            player.cities,
+            player.score,
+            player.lumber,
+            player.wool,
+            player.brick,
+            player.ore
+        
             
         ]
             
@@ -63,7 +64,7 @@ class Agent(player):
     def get_action(self, state):
         # random moves: tradeoff exploration / exploitation
         self.epsilon = 80 - self.n_games
-        final_move = [0,0,0]
+        final_move = np.full(180,0)
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 2)
             final_move[move] = 1
@@ -82,7 +83,7 @@ def train():
     total_score = 0
     record = 0
     agent = Agent()
-    game = gameAI()
+    game = GamePlay()
     while True:
         # get old state
         state_old = agent.get_state(game)

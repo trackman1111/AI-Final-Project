@@ -59,7 +59,7 @@ class GameBoard:
     def find_available_settlements(self):
         pass
 
-    def find
+    #def find
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):
