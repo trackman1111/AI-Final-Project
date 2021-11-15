@@ -36,16 +36,17 @@ class GameBoard:
     def randomize_game_board(self):
         hexes = []
         current_number = 0
-        for x in range(0, 19):
-            current_hex = hex_types.pop(random.randint(0, len(hex_types)))
+        x = 0
+        while len(hex_types) > 0:
+            current_hex = hex_types.pop(random.randint(0, len(hex_types) - 1))
             if current_hex == 'SAND':
                 hexes.append(hex.Hex(current_hex, chr(97 + x), -1))
             else:
                 hexes.append(hex.Hex(current_hex, chr(97 + x), initial_numbers[current_number]))
                 current_number = current_number + 1
+            x += 1
 
         hexes.append(hex.Hex('WATER', chr(97 + 19), -1))
-        print(len(hexes))
         return hexes
 
     # Returns list of available settlement locations for player
