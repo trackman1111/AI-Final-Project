@@ -61,6 +61,15 @@ class GameBoard:
     def get_edges(self):
         return self.edges
 
+    def get_all_node_distances(self, selected_node):
+        # get all nodes
+        print(self.get_nodes())
+        # iterate through all nodes 
+        # find distance from node to selected node
+        # put node with distance in dict
+        # return dict
+        pass
+
     # loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
     def find_available_settlements(self):
         pass
