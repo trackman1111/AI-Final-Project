@@ -13,10 +13,7 @@ class GamePlay:
         self.player = Player()
         self.frame_iteration = 0
         self.score = 0
-
-    def reset(self):
-        self.game = game_board.GameBoard()
-        self.player = Player()
+        self.reward = 0
 
     def play_step(self, action):
         self.frame_iteration += 0
@@ -55,10 +52,7 @@ class GamePlay:
 
 if __name__ == '__main__':
     game_control = GamePlay()
-    game_control.reset()
     for node in game_control.game.nodes:
-        print(node.hex_one + node.hex_two + node.hex_three)
-    for edge in game_control.game.edges:
-        print(edge.node_one + edge.node_two)
+        print(node.hex_one.resource + node.hex_three.resource + node.hex_three.resource)
     #while game_control.score < 10:
         #game_control.play_step(Agent.decision())

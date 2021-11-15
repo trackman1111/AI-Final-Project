@@ -7,13 +7,16 @@ hex_types = ['SAND', 'ORE', 'ORE', 'ORE', 'WHEAT', 'WHEAT', 'WHEAT', 'WHEAT',
              'SHEEP', 'BRICK', 'BRICK', 'BRICK']
 
 
-def initialize_nodes():
+def initialize_nodes(hexes):
     with open("nodes.txt", "r") as nodestream:
+        x = 0
         temp = []
         for line in nodestream:
             line = line.strip()
             cv = line.split(",")
-            temp.append(hex.Node(cv[0], cv[1], cv[2], int(cv[3]) - 1, int(cv[4]) - 1, int(cv[5]) - 1, 0))
+            temp.append(hex.Node(hexes[ord(cv[0]) - 97], hexes[ord(cv[1]) - 97], hexes[ord(cv[2]) - 97], int(cv[3]) - 1,
+                                 int(cv[4]) - 1, int(cv[5]) - 1, 0))
+            x += 1
         return temp
 
 
@@ -30,7 +33,7 @@ def initialize_edges():
 class GameBoard:
     def __init__(self):
         self.hexes = self.randomize_game_board()
-        self.nodes = initialize_nodes()
+        self.nodes = initialize_nodes(self.hexes)
         self.edges = initialize_edges()
 
     def randomize_game_board(self):
@@ -47,6 +50,7 @@ class GameBoard:
             x += 1
 
         hexes.append(hex.Hex('WATER', chr(97 + 19), -1))
+        print(hexes)
         return hexes
 
     # Returns list of available settlement locations for player
