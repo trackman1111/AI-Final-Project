@@ -2,9 +2,8 @@ import random
 import hex
 
 initial_numbers = [5, 2, 6, 3, 8, 10, 9, 12, 11, 4, 8, 10, 9, 4, 5, 6, 3, 11]
-hex_types = ['SAND', 'ORE', 'ORE', 'ORE', 'WHEAT', 'WHEAT', 'WHEAT', 'WHEAT',
-             'WOOD', 'WOOD', 'WOOD', 'WOOD', 'SHEEP', 'SHEEP', 'SHEEP',
-             'SHEEP', 'BRICK', 'BRICK', 'BRICK']
+hex_types = ['WOOD', 'SHEEP', 'WHEAT', 'SHEEP', 'WHEAT', 'ORE', 'WOOD', 'WHEAT', 'ORE', 'BRICK', 'SAND', 'BRICK', 'ORE',
+             'BRICK', 'WOOD', 'SHEEP', 'SHEEP', 'WOOD', 'WHEAT']
 
 
 def initialize_nodes(hexes):
@@ -14,7 +13,7 @@ def initialize_nodes(hexes):
         for line in nodestream:
             line = line.strip()
             cv = line.split(",")
-            temp.append(hex.Node(hexes[ord(cv[0]) - 97], hexes[ord(cv[1]) - 97], hexes[ord(cv[2]) - 97], int(cv[3]) - 1,
+            temp.append(hex.Node(x, hexes[ord(cv[0]) - 97], hexes[ord(cv[1]) - 97], hexes[ord(cv[2]) - 97], int(cv[3]) - 1,
                                  int(cv[4]) - 1, int(cv[5]) - 1, 0))
             x += 1
         return temp
@@ -35,13 +34,14 @@ class GameBoard:
         self.hexes = self.randomize_game_board()
         self.nodes = initialize_nodes(self.hexes)
         self.edges = initialize_edges()
+        self.initialize_first_settlements()
 
     def randomize_game_board(self):
         hexes = []
         current_number = 0
         x = 0
         while len(hex_types) > 0:
-            current_hex = hex_types.pop(random.randint(0, len(hex_types) - 1))
+            current_hex = hex_types.pop(0)
             if current_hex == 'SAND':
                 hexes.append(hex.Hex(current_hex, chr(97 + x), -1))
             else:
@@ -66,7 +66,20 @@ class GameBoard:
         pass
 
     def find_available_cities(self):
-        pass
+        curr_settlements = []
+        for node in self.nodes:
+            if node.value == 1:
+                curr_settlements.append(node)
+        return curr_settlements
+
+    def initialize_first_settlements(self):
+        resource = ['ORE', 'SHEEP', 'WHEAT', 'BRICK', 'WOOD']
+        self.nodes[35].value = 1
+        self.nodes[40].value = 1
+        self.edges[46].value = 1
+        self.edges[50].value = 1
+
+
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):

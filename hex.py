@@ -1,6 +1,3 @@
-from enum import Enum
-
-
 class Hex:
     def __init__(self, resource, hex_id, value):
         self.resource = resource
@@ -9,7 +6,8 @@ class Hex:
 
 
 class Node:
-    def __init__(self, hex_one, hex_two, hex_three, edge_one, edge_two, edge_three, value):
+    def __init__(self, node_id, hex_one, hex_two, hex_three, edge_one, edge_two, edge_three, value):
+        self.node_id = node_id
         self.value = value
         self.edge_three = edge_three
         self.edge_two = edge_two

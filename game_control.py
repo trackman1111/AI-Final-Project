@@ -52,7 +52,9 @@ class GamePlay:
 
 if __name__ == '__main__':
     game_control = GamePlay()
-    for node in game_control.game.nodes:
-        print(node.hex_one.resource + node.hex_three.resource + node.hex_three.resource)
+    for node in game_control.game.find_available_cities():
+        print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
+
+
     #while game_control.score < 10:
         #game_control.play_step(Agent.decision())
