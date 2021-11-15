@@ -5,12 +5,15 @@ import ai
 class Player:
     def __init__(self, player_id, is_ai):
         self.player_id = player_id
-        self.is_ai = is_ai;
+        self.is_ai = is_ai
         self.num_sheep = 0
         self.num_wheat = 0
         self.num_wood = 0
         self.num_brick = 0
         self.num_ore = 0
+        self.num_settlement=0
+        self.num_cities=0
+        self.num_road=0
         self.score = 0
 
     def create_settlement(self, locations):
@@ -19,12 +22,14 @@ class Player:
                 print("No available locations.")
                 return -1
             else:
-                selected_location = input("Choose from locations: " + locations)
+                #selected_location = input("Choose from locations: " + locations)
+                selected_location = locations
                 if selected_location in locations:
                     self.num_sheep -= 1
                     self.num_wheat -= 1
                     self.num_wood -= 1
                     self.num_brick -= 1
+                    self.num_settlement+=1
                     return selected_location
                 else:
                     print("Unavailable.")
@@ -38,10 +43,13 @@ class Player:
                 print("No available locations.")
                 return -1
             else:
-                selected_location = input("Choose from locations: " + locations)
+                #selected_location = input("Choose from locations: " + locations)
+                selected_location = locations
                 if selected_location in locations:
                     self.num_wheat -= 2
                     self.num_ore -= 3
+                    self.num_settlement-=1
+                    self.num_cities+=1
                     return selected_location
                 else:
                     print("Unavailable.")
@@ -53,7 +61,8 @@ class Player:
                 print("No available locations.")
                 return -1
             else:
-                selected_location = input("Choose from locations: " + locations)
+                #selected_location = input("Choose from locations: " + locations)
+                selected_location=locations
                 if selected_location in locations:
                     self.num_wood -= 1
                     self.num_brick -= 1

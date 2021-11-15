@@ -16,6 +16,7 @@ class GamePlay:
     def __init__(self):
         self.game = game_board.GameBoard()
         self.player = Player(1, True)
+        self.score = self.player.score
         self.frame_iteration = 0
 
     def reset(self):
@@ -26,7 +27,7 @@ class GamePlay:
         self.frame_iteration+=0
         typeAction = np.where(action==1)
         if typeAction==0:
-            pass
+            self.distributeresources()
         if typeAction <=1 and typeAction>=73:
             typeAction=-1
             self.placeRoads(typeAction)
@@ -38,7 +39,8 @@ class GamePlay:
             self.upgradeToCity(typeAction)
             
             
-        
+    def roll(self):
+        dice=random.randint(1,6)+random.randint(1,6)
         
     reward=0    
         
@@ -61,9 +63,8 @@ class GamePlay:
 
     
     def distribute_resources(self):
-        self.player.receive_resources(self.game.distibute_resouces())
+        self.player.receive_resources(self.game.distibute_resouces(self.roll))
     
-
 
     #while True:
     #    score = game_board.calculate_score()
