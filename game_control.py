@@ -1,16 +1,18 @@
 import random
 import enum
+
+#import Agent
 import game_board
 from player import Player
 import numpy as np
 
 
-# if __name__ == '__main__':
 class GamePlay:
     def __init__(self):
         self.game = game_board.GameBoard()
         self.player = Player()
         self.frame_iteration = 0
+        self.score = 0
 
     def reset(self):
         self.game = game_board.GameBoard()
@@ -31,27 +33,28 @@ class GamePlay:
             type_action = -128
             self.upgradeToCity(type_action)
 
-    reward = 0
-
     def place_settlement(self, action):
         self.game.add_settlement(self.player.create_settlement(action))
+        self.score +=1
         reward = +1
         return reward
 
     def upgrade_to_city(self, action):
         self.game.upgrade_to_city(self.player.upgrade_to_city(action))
+        self.score += 1
         reward = +1
         return reward
 
     def place_roads(self, action):
         self.game.build_road(self.player.build_road(action))
+        self.score += 1
 
     def distribute_resources(self):
         self.player.receive_resources(self.game.distibute_resouces())
 
-    # while True:
-    #    score = game_board.calculate_score()
-    #    if score > 10:
-    #        break
-    #    ai.make_decision(game_board.get_values())
-    #    distribute_resources(random.randint(1, 6) + random.randint(1, 6))
+
+if __name__ == '__main__':
+    game_control = GamePlay()
+    game_control.reset()
+    #while game_control.score < 10:
+        #game_control.play_step(Agent.decision())

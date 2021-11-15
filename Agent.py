@@ -122,3 +122,7 @@ def train():
 
 if __name__ == '__main__':
     train()
+
+
+def decision():
+    return None
