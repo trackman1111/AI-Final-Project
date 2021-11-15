@@ -5,14 +5,14 @@ import numpy as np
 from collections import deque
 from model import Linear_QNet, QTrainer
 from helper import plot
-from game_control import GamePlay,Player
+from game_control import GamePlay, Player
 #import game
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
 LR = 0.001
 
-class Agent():
+class Agent:
 
     def __init__(self):
         self.n_games = 0
