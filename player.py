@@ -3,9 +3,7 @@ import ai
 
 
 class Player:
-    def __init__(self, player_id, is_ai):
-        self.player_id = player_id
-        self.is_ai = is_ai;
+    def __init__(self):
         self.num_sheep = 0
         self.num_wheat = 0
         self.num_wood = 0

@@ -17,12 +17,10 @@ class Node:
         self.hex_three = hex_three
         self.hex_two = hex_two
         self.hex_one = hex_one
-        
-        
-        
+
+
 class Edge:
     def __init__(self, node_one, node_two, value):
         self.value = value
         self.node_two = node_two
         self.node_one = node_one
-        
