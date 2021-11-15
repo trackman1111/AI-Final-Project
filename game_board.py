@@ -11,8 +11,9 @@ def initialize_nodes():
     with open("nodes.txt", "r") as nodestream:
         temp = []
         for line in nodestream:
+            line = line.strip()
             cv = line.split(",")
-            temp.append(hex.Node(cv[0], cv[1], cv[2], cv[3] - 1, cv[4] - 1, cv[5] - 1, 0))
+            temp.append(hex.Node(cv[0], cv[1], cv[2], int(cv[3]) - 1, int(cv[4]) - 1, int(cv[5]) - 1, 0))
         return temp
 
 
@@ -20,8 +21,9 @@ def initialize_edges():
     with open("edges.txt", "r") as edgestream:
         temp = []
         for line in edgestream:
+            line = line.strip()
             cv = line.split(",")
-            temp.append(hex.Edge(cv[0] - 1, cv[1] - 1, 0))
+            temp.append(hex.Edge(int(cv[0]) - 1, int(cv[1]) - 1, 0))
         return temp
 
 
@@ -35,7 +37,7 @@ class GameBoard:
         hexes = []
         current_number = 0
         for x in range(0, 19):
-            current_hex = hex_types.pop(random.randrange(len(hex_types)))
+            current_hex = hex_types.pop(random.randint(0, len(hex_types)))
             if current_hex == 'SAND':
                 hexes.append(hex.Hex(current_hex, chr(97 + x), -1))
             else:
