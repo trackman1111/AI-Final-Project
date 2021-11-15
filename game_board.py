@@ -1,7 +1,6 @@
 import random
 import hex
 
-
 initial_numbers = [5, 2, 6, 3, 8, 10, 9, 12, 11, 4, 8, 10, 9, 4, 5, 6, 3, 11]
 hex_types = ['SAND', 'ORE', 'ORE', 'ORE', 'WHEAT', 'WHEAT', 'WHEAT', 'WHEAT',
              'WOOD', 'WOOD', 'WOOD', 'WOOD', 'SHEEP', 'SHEEP', 'SHEEP',
@@ -55,11 +54,12 @@ class GameBoard:
     def get_edges(self):
         return self.edges
 
-    #loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
+    # loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
     def find_available_settlements(self):
         pass
 
-    def find
+    def find_available_cities(self):
+        pass
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):
