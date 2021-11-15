@@ -1,5 +1,4 @@
 import random
-import ai
 
 
 class Player:
@@ -11,54 +10,22 @@ class Player:
         self.num_ore = 0
         self.score = 0
 
-    def create_settlement(self, locations):
-        if self.num_sheep > 0 and self.num_wheat > 0 and self.num_brick > 0 and self.num_wood > 0:
-            if len(locations == 0):
-                print("No available locations.")
-                return -1
-            else:
-                selected_location = input("Choose from locations: " + locations)
-                if selected_location in locations:
-                    self.num_sheep -= 1
-                    self.num_wheat -= 1
-                    self.num_wood -= 1
-                    self.num_brick -= 1
-                    return selected_location
-                else:
-                    print("Unavailable.")
-                    return -1
-        else:
-            print("Lacking resources.")
+    def create_settlement(self, selected_location):
+        self.num_sheep -= 1
+        self.num_wheat -= 1
+        self.num_wood -= 1
+        self.num_brick -= 1
+        # set node at location to 1
 
     def upgrade_to_city(self, locations):
-        if self.num_wheat >= 2 and self.num_ore >= 3:
-            if len(locations == 0):
-                print("No available locations.")
-                return -1
-            else:
-                selected_location = input("Choose from locations: " + locations)
-                if selected_location in locations:
-                    self.num_wheat -= 2
-                    self.num_ore -= 3
-                    return selected_location
-                else:
-                    print("Unavailable.")
-                    return -1
+        self.num_wheat -= 2
+        self.num_sore -= 3
+        # set node at location to 1
 
     def build_road(self, locations):
-        if self.num_wood >= 2 and self.num_brick >= 1:
-            if len(locations == 0):
-                print("No available locations.")
-                return -1
-            else:
-                selected_location = input("Choose from locations: " + locations)
-                if selected_location in locations:
-                    self.num_wood -= 1
-                    self.num_brick -= 1
-                    return selected_location
-                else:
-                    print("Unavailable.")
-                    return -1
+        self.num_wood -= 1
+        self.num_brick -= 1
+        # set edge at location to 1
 
     def receive_resources(self, sheep, wheat, wood, brick, ore):
         self.num_sheep += sheep
@@ -66,3 +33,7 @@ class Player:
         self.num_wood += wood
         self.num_brick += brick
         self.num_ore += ore
+
+    def get_resources(self):
+        current_resources = [self.num_sheep, self.num_ore, self.num_wood, self.num_wheat, self.num_brick]
+        return current_resources
