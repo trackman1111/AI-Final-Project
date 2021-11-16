@@ -50,7 +50,7 @@ class GameBoard:
             x += 1
 
         hexes.append(hex.Hex('WATER', chr(97 + 19), -1))
-        print(hexes)
+        # print(hexes)
         return hexes
 
     # Returns list of available settlement locations for player
@@ -62,30 +62,45 @@ class GameBoard:
         return self.edges
 
     def get_all_node_distances(self):
-        selected_node = self.nodes[0]
-        # get all nodes
-        print(selected_node.edge_one)
-        print(selected_node.edge_two)
-        print(selected_node.edge_three)
-        self.find_specific_edge()
-        # print(selected_node.edge_two.node_one + 'and' + selected_node.edge_two.node_two)
-        # print(selected_node.edge_three.node_one + 'and' + selected_node.edge_three.node_two)
-        # iterate through all nodes 
-        # find distance from node to selected node
-        # put node with distance in dict
-        # return dict
+        selected_node = self.nodes[28] #testing
+        
+        selected_node_id= self.get_index_of_node(selected_node)
+        self.get_edges_connected_to_node(selected_node_id)
+
+        # get node index of selected node
+        # get temp stack of all nodes
+        # retrieve list of all edges connected to that selected node
+            # get nodes connected to edges
+            # pop list of nodes from list
+            # push nodes and distnace into dictionary 
+            # push edges into list (distance ++)
+
+
+        visited_nodes = []
+        edge_queue = []
+        visited_nodes.append(selected_node)
+        edge_queue.append(selected_node_id)
+
+        while edge_queue: 
+            temp = edge_queue.pop(0)
+            print(temp, end = " ")
+
+            for next_edge in  
+        
         pass
 
-    def get_node_with_edge(self, selected_node):
+    def get_node_connected_to_edge(self, selected_node):
         for node in self.nodes: 
             if(node.hex_one == selected_node.hex_one or node.hex_two == selected_node.hex_two or node.hex_three == selected_node.hex_three):
-                return node
+                print(node)
 
-    def get_edges_on_node(self, edge_id = 0):
+    def get_edges_connected_to_node(self, selected_node_id):
         for edge in self.edges: 
-            if(edge_id == edge.node_one or edge_id == edge_two)
-                return edge 
-
+            if(selected_node_id == edge.node_one or selected_node_id == edge.node_two):
+                print(edge) 
+    
+    def get_index_of_node(self, selected_node):
+        return self.nodes.index(selected_node)
 
     # loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
     def find_available_settlements(self):

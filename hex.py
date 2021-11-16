@@ -20,5 +20,5 @@ class Node:
 class Edge:
     def __init__(self, node_one, node_two, value):
         self.value = value
-        self.node_two = node_two
-        self.node_one = node_one
+        self.node_two = node_two    # index of node in array
+        self.node_one = node_one    # index of node in array

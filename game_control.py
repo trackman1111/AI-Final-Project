@@ -52,21 +52,8 @@ class GamePlay:
 
 if __name__ == '__main__':
     game_control = GamePlay()
-<<<<<<< HEAD
-    for node in game_control.game.find_available_cities():
-        print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
-
-
-=======
-    
     game_control.game.get_all_node_distances()
-
-    # for node in game_control.game.nodes:
-    #     print(node.hex_one)
-    # for edge in game_control.game.edges:
-    #     print(edge.node_one + edge.node_two)
-    # for hex in game_control.game.hexes:
-    #     print(hex.value)
->>>>>>> 636d196... supporting functions for node traversal
+    # for node in game_control.game.find_available_cities():
+    #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
     #while game_control.score < 10:
         #game_control.play_step(Agent.decision())
