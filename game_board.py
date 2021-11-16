@@ -62,43 +62,25 @@ class GameBoard:
         return self.edges
 
     def get_all_node_distances(self):
-        selected_node = self.nodes[28] #testing
-        
-        selected_node_id= self.get_index_of_node(selected_node)
-        self.get_edges_connected_to_node(selected_node_id)
+        selected_node = self.nodes[23]
+        #print(len(self.nodes))
 
-        # get node index of selected node
-        # get temp stack of all nodes
-        # retrieve list of all edges connected to that selected node
-            # get nodes connected to edges
-            # pop list of nodes from list
-            # push nodes and distnace into dictionary 
-            # push edges into list (distance ++)
+        self.get_neighboring_nodes(selected_node)
 
-
-        visited_nodes = []
-        edge_queue = []
-        visited_nodes.append(selected_node)
-        edge_queue.append(selected_node_id)
-
-        while edge_queue: 
-            temp = edge_queue.pop(0)
-            print(temp, end = " ")
-
-            for next_edge in  
-        
         pass
-
-    def get_node_connected_to_edge(self, selected_node):
-        for node in self.nodes: 
-            if(node.hex_one == selected_node.hex_one or node.hex_two == selected_node.hex_two or node.hex_three == selected_node.hex_three):
-                print(node)
-
-    def get_edges_connected_to_node(self, selected_node_id):
-        for edge in self.edges: 
-            if(selected_node_id == edge.node_one or selected_node_id == edge.node_two):
-                print(edge) 
     
+    def get_neighboring_nodes(self, selected_node): 
+        neighboring_nodes = []
+        for edge in self.edges:
+            if edge.node_one == selected_node.node_id:
+                print(str(selected_node.node_id) + " : " + str(edge.node_two))
+                neighboring_nodes.append(edge.node_two)
+            if edge.node_two == selected_node.node_id:
+                print(str(selected_node.node_id) + " : " + str(edge.node_one))
+                neighboring_nodes.append(edge.node_one)
+        #print(neighboring_nodes)
+        return neighboring_nodes
+
     def get_index_of_node(self, selected_node):
         return self.nodes.index(selected_node)
 
