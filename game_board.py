@@ -61,14 +61,31 @@ class GameBoard:
     def get_edges(self):
         return self.edges
 
-    def get_all_node_distances(self, selected_node):
+    def get_all_node_distances(self):
+        selected_node = self.nodes[0]
         # get all nodes
-        print(self.get_nodes())
+        print(selected_node.edge_one)
+        print(selected_node.edge_two)
+        print(selected_node.edge_three)
+        self.find_specific_edge()
+        # print(selected_node.edge_two.node_one + 'and' + selected_node.edge_two.node_two)
+        # print(selected_node.edge_three.node_one + 'and' + selected_node.edge_three.node_two)
         # iterate through all nodes 
         # find distance from node to selected node
         # put node with distance in dict
         # return dict
         pass
+
+    def get_node_with_edge(self, selected_node):
+        for node in self.nodes: 
+            if(node.hex_one == selected_node.hex_one or node.hex_two == selected_node.hex_two or node.hex_three == selected_node.hex_three):
+                return node
+
+    def get_edges_on_node(self, edge_id = 0):
+        for edge in self.edges: 
+            if(edge_id == edge.node_one or edge_id == edge_two)
+                return edge 
+
 
     # loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
     def find_available_settlements(self):
