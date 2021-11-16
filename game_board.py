@@ -62,23 +62,23 @@ class GameBoard:
         return self.edges
 
     def get_all_node_distances(self):
+        visited = []
+        queue = []
         selected_node = self.nodes[23]
-        #print(len(self.nodes))
 
-        self.get_neighboring_nodes(selected_node)
+        visited.append(selected_node)
+        queue.append(self.get_neighboring_nodes(selected_node))
+
 
         pass
     
     def get_neighboring_nodes(self, selected_node): 
         neighboring_nodes = []
         for edge in self.edges:
-            if edge.node_one == selected_node.node_id:
-                print(str(selected_node.node_id) + " : " + str(edge.node_two))
+            if edge.node_one == (selected_node.node_id-1):                
                 neighboring_nodes.append(edge.node_two)
-            if edge.node_two == selected_node.node_id:
-                print(str(selected_node.node_id) + " : " + str(edge.node_one))
+            if edge.node_two == (selected_node.node_id-1):
                 neighboring_nodes.append(edge.node_one)
-        #print(neighboring_nodes)
         return neighboring_nodes
 
     def get_index_of_node(self, selected_node):
