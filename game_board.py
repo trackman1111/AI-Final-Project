@@ -72,7 +72,6 @@ class GameBoard:
         current_nodes.append(selected_node.node_id)
 
         while len(current_nodes) > 0:
-            print(current_nodes)
             for node in current_nodes:
                 not_visited.remove(node)
             for node in current_nodes:
@@ -80,17 +79,15 @@ class GameBoard:
                     if i in not_visited:
                         neighboring_nodes.append(i)
 
-            node_distance_dict[count] = neighboring_nodes
-            current_nodes.clear()
-            current_nodes += neighboring_nodes
-            neighboring_nodes.clear()
+            current_nodes = []
+            current_nodes.extend(neighboring_nodes)
+            neighboring_nodes = []
             current_nodes = list(set(current_nodes))
             count += 1
+            if len(current_nodes) > 0:
+                node_distance_dict[count] = current_nodes
 
-        node_distance_dict = {k:v for k,v in node_distance_dict.items() if v}
-        # for testing     
-        for key, value in node_distance_dict.items():
-            print(key, ' : ', list(map(lambda x:x+1, value)))
+        print(node_distance_dict)
 
         return node_distance_dict
     
