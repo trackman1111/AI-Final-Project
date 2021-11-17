@@ -61,52 +61,47 @@ class GameBoard:
     def get_edges(self):
         return self.edges
 
-    def get_all_node_distances(self, selected_node):
+    def get_all_node_distances(self, owned_nodes):
         # initialize
         not_visited = self.get_all_node_ids()
         node_distance_dict = {}
-        current_nodes = []
+        current_nodes = [owned_nodes.node_id]
         neighboring_nodes = []
-        count = 0
-        node_distance_dict[count] = [selected_node.node_id]
-        current_nodes.append(selected_node.node_id)
+        count = 1
+        node_distance_dict[owned_nodes.node_id] = 0
 
-        while len(current_nodes) > 0:
+        while count <= 2 and len(current_nodes) != 0:
             for node in current_nodes:
                 not_visited.remove(node)
             for node in current_nodes:
                 for i in self.get_neighboring_nodes(self.nodes[node]):
                     if i in not_visited:
-                        neighboring_nodes.append(i)
-
+                        node_distance_dict[self.nodes[i].node_id] = count
+                        neighboring_nodes.append(self.nodes[i].node_id)
             current_nodes = []
             current_nodes.extend(neighboring_nodes)
             neighboring_nodes = []
             current_nodes = list(set(current_nodes))
             count += 1
-            if len(current_nodes) > 0:
-                node_distance_dict[count] = current_nodes
-
-        print(node_distance_dict)
 
         return node_distance_dict
-    
-    def get_neighboring_nodes(self, selected_node): 
+
+    def get_neighboring_nodes(self, selected_node):
         neighboring_nodes = []
         for edge in self.edges:
-            if edge.node_one == (selected_node.node_id):                
+            if edge.node_one == (selected_node.node_id) and edge.value != 1:
                 neighboring_nodes.append(edge.node_two)
-            if edge.node_two == (selected_node.node_id):
+            if edge.node_two == (selected_node.node_id) and edge.value != 1:
                 neighboring_nodes.append(edge.node_one)
         return neighboring_nodes
 
     def get_index_of_node(self, selected_node):
         return self.nodes.index(selected_node)
-    
+
 
     def get_all_node_ids(self):
         return list(range(0, len(self.nodes)))
-            
+
     # loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
     def find_available_settlements(self):
         pass
@@ -114,9 +109,16 @@ class GameBoard:
     def find_available_cities(self):
         curr_settlements = []
         for node in self.nodes:
-            if node.value == 1:
+            if node.value == 2:
                 curr_settlements.append(node)
         return curr_settlements
+
+    def find_owned_nodes(self):
+        curr_nodes = []
+        for node in self.nodes:
+            if node.value >= 1:
+                curr_nodes.append(node)
+        return curr_nodes
 
     def initialize_first_settlements(self):
         resource = ['ORE', 'SHEEP', 'WHEAT', 'BRICK', 'WOOD']

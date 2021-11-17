@@ -52,8 +52,7 @@ class GamePlay:
 
 if __name__ == '__main__':
     game_control = GamePlay()
-    for nodes in game_control.game.nodes:
-        print(nodes.value)
+    print(game_control.game.get_all_node_distances(game_control.game.nodes[30]))
     # for node in game_control.game.find_available_cities():
     #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
     #while game_control.score < 10:
