@@ -27,7 +27,7 @@ class GamePlay:
         self.frame_iteration+=0
         typeAction = np.where(action==1)
         if typeAction==0:
-            self.distributeresources()
+            self.distribute_resources(self.roll)
         if typeAction <=1 and typeAction>=73:
             typeAction=-1
             self.placeRoads(typeAction)

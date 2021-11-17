@@ -4,9 +4,11 @@ import random
 import numpy as np
 from collections import deque
 from model import Linear_QNet, QTrainer
-from helper import plot
+#import helper
+#from helper import plot
+import matplotlib.pyplot
 from game_control import GamePlay,Player
-#import game
+
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
@@ -30,8 +32,8 @@ class Agent():
         state = [
             
             player.settlements,
-            player.roads,
             player.cities,
+            player.roads,
             player.score,
             player.lumber,
             player.wool,
@@ -107,7 +109,7 @@ def train():
             agent.n_games += 1
             agent.train_long_memory()
 
-            if score < Record:
+            if score > record:
                 record = score
                 agent.model.save()
 
@@ -117,7 +119,7 @@ def train():
             total_score += score
             mean_score = total_score / agent.n_games
             plot_mean_scores.append(mean_score)
-            plot(plot_scores, plot_mean_scores)
+            print(plot_scores, plot_mean_scores)
 
 
 if __name__ == '__main__':
