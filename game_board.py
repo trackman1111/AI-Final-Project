@@ -61,10 +61,8 @@ class GameBoard:
     def get_edges(self):
         return self.edges
 
-    def get_all_node_distances(self):
-
-        selected_node = self.nodes[0]
-    
+    def get_all_node_distances(self, selected_node):
+        # initialize
         not_visited = self.get_all_node_ids()
         node_distance_dict = {}
         queue = []
