@@ -65,24 +65,28 @@ class GameBoard:
         # initialize
         not_visited = self.get_all_node_ids()
         node_distance_dict = {}
-        current_nodes = [owned_nodes.node_id]
-        neighboring_nodes = []
-        count = 1
-        node_distance_dict[owned_nodes.node_id] = 0
-
-        while count <= 2 and len(current_nodes) != 0:
-            for node in current_nodes:
-                not_visited.remove(node)
-            for node in current_nodes:
-                for i in self.get_neighboring_nodes(self.nodes[node]):
-                    if i in not_visited:
-                        node_distance_dict[self.nodes[i].node_id] = count
-                        neighboring_nodes.append(self.nodes[i].node_id)
-            current_nodes = []
-            current_nodes.extend(neighboring_nodes)
+        for node in owned_nodes:
+            current_nodes = [node.node_id]
             neighboring_nodes = []
-            current_nodes = list(set(current_nodes))
-            count += 1
+            count = 1
+            node_distance_dict[node.node_id] = 0
+
+            while count <= 2 and len(current_nodes) != 0:
+                for temp_node in current_nodes:
+                    not_visited.remove(temp_node)
+                for temp_node in current_nodes:
+                    for i in self.get_neighboring_nodes(self.nodes[temp_node]):
+                        if i in not_visited:
+                            if not self.nodes[i].node_id in node_distance_dict:
+                                node_distance_dict[self.nodes[i].node_id] = count
+                            if self.nodes[i].node_id in node_distance_dict and node_distance_dict[self.nodes[i].node_id] > count:
+                                node_distance_dict[self.nodes[i].node_id] = count
+                            neighboring_nodes.append(self.nodes[i].node_id)
+                current_nodes = []
+                current_nodes.extend(neighboring_nodes)
+                neighboring_nodes = []
+                current_nodes = list(set(current_nodes))
+                count += 1
 
         return node_distance_dict
 
