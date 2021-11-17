@@ -67,21 +67,20 @@ class GameBoard:
 
         not_visited = self.get_all_node_ids()
         queue = []
-        count = 0       
+        count = 0
+        node_distance_dict = {count : selected_node.node_id}       
 
         queue += self.get_neighboring_nodes(selected_node)
-        print(queue)
         while queue:
-            selected_node = queue.pop(0)
-            print("selected: " + str(selected_node))
-            count += 1
-            print(queue)
             for node in not_visited:
                 if node == queue[0]:
+                    count += 1
                     queue += self.get_neighboring_nodes(self.nodes[node])
+                    node_distance_dict[count] = self.nodes[node].node_id
                     not_visited.remove(node)
-       
-       
+                    
+            queue.pop(0)
+        print(node_distance_dict)
         pass
     
     def get_neighboring_nodes(self, selected_node): 
