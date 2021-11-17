@@ -65,13 +65,20 @@ class GameBoard:
         selected_node = self.nodes[23]
 
         visited = []
-        queue = []       
+        queue = []
+        count = 0       
 
         visited.append(selected_node)
         queue.append(self.get_neighboring_nodes(selected_node))
+        
+        while queue: 
+            queue.pop(0)
+            count++
 
-        print(queue)
-
+            for index in queue:
+                if index == visited:
+                    queue.append(i)
+                    visited.append(selected_node)
 
         pass
     
