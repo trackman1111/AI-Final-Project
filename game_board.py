@@ -76,15 +76,24 @@ class GameBoard:
             for node in not_visited:
                 if node == queue[0]:
                     neighboring_nodes = []
+                    not_visited.remove(node)
+
                     for i in self.get_neighboring_nodes(self.nodes[node]):
                         if i in not_visited:
                             neighboring_nodes.append(i)
+
+                    for i in neighboring_nodes:
+                        if i in queue:
+                            neighboring_nodes.remove(i)
+
                     queue += neighboring_nodes
+                    
                     count += 1
                     node_distance_dict[count] = neighboring_nodes
-                    not_visited.remove(node)
+
             queue.pop(0)
 
+        node_distance_dict = {k:v for k,v in node_distance_dict.items() if v}
         # for testing     
         for key, value in node_distance_dict.items():
             print(key, ' : ', list(map(lambda x:x+1, value)))
