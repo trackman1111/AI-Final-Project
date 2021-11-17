@@ -62,12 +62,15 @@ class GameBoard:
         return self.edges
 
     def get_all_node_distances(self):
-        visited = []
-        queue = []
         selected_node = self.nodes[23]
+
+        visited = []
+        queue = []       
 
         visited.append(selected_node)
         queue.append(self.get_neighboring_nodes(selected_node))
+
+        print(queue)
 
 
         pass
