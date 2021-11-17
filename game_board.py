@@ -71,7 +71,7 @@ class GameBoard:
             count = 1
             node_distance_dict[node.node_id] = 0
 
-            while count <= 2 and len(current_nodes) != 0:
+            while count <= 3 and len(current_nodes) != 0:
                 for temp_node in current_nodes:
                     not_visited.remove(temp_node)
                 for temp_node in current_nodes:
