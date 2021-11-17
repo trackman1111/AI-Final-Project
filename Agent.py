@@ -4,17 +4,15 @@ import random
 import numpy as np
 from collections import deque
 from model import Linear_QNet, QTrainer
-#import helper
-#from helper import plot
-import matplotlib.pyplot
-from game_control import GamePlay,Player
-
+from helper import plot
+from game_control import GamePlay, Player
+#import game
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1000
 LR = 0.001
 
-class Agent():
+class Agent:
 
     def __init__(self):
         self.n_games = 0
@@ -124,3 +122,7 @@ def train():
 
 if __name__ == '__main__':
     train()
+
+
+def decision():
+    return None
