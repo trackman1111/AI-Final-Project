@@ -4,7 +4,7 @@ import random
 import numpy as np
 from collections import deque
 from model import Linear_QNet, QTrainer
-from helper import plot
+#from helper import plot
 from game_control import GamePlay, Player
 #import game
 
@@ -29,14 +29,15 @@ class Agent:
         player = GamePlay.player
         state = [
             
-            player.settlements,
-            player.cities,
-            player.roads,
+            player.num_settlements,
+            player.num_cities,
+            player.num_roads,
             player.score,
-            player.lumber,
-            player.wool,
-            player.brick,
-            player.ore
+            player.num_wood,
+            player.num_sheep,
+            player.num_brick,
+            player.num_wheat,
+            player.num_ore
         
             
         ]
@@ -64,7 +65,7 @@ class Agent:
     def get_action(self, state):
         # random moves: tradeoff exploration / exploitation
         self.epsilon = 80 - self.n_games
-        final_move = np.full(180,0)
+        final_move = np.full(182,0)
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 2)
             final_move[move] = 1

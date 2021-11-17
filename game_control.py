@@ -18,8 +18,9 @@ class GamePlay:
     def play_step(self, action):
         self.frame_iteration += 0
         type_action = np.where(action == 1)
+        print(type_action)
         if type_action == 0:
-            pass
+           self.distribute_resources()
         elif 1 >= type_action >= 73:
             type_action = -1
             self.place_roads(type_action)
