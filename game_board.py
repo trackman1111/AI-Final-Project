@@ -62,24 +62,26 @@ class GameBoard:
         return self.edges
 
     def get_all_node_distances(self):
+
         selected_node = self.nodes[23]
 
-        visited = []
+        not_visited = self.get_all_node_ids()
         queue = []
         count = 0       
 
-        visited.append(selected_node)
-        queue.append(self.get_neighboring_nodes(selected_node))
-        
-        while queue: 
-            queue.pop(0)
-            count++
-
-            for index in queue:
-                if index == visited:
-                    queue.append(i)
-                    visited.append(selected_node)
-
+        queue += self.get_neighboring_nodes(selected_node)
+        print(queue)
+        while queue:
+            selected_node = queue.pop(0)
+            print("selected: " + str(selected_node))
+            count += 1
+            print(queue)
+            for node in not_visited:
+                if node == queue[0]:
+                    queue += self.get_neighboring_nodes(self.nodes[node])
+                    not_visited.remove(node)
+       
+       
         pass
     
     def get_neighboring_nodes(self, selected_node): 
@@ -93,7 +95,11 @@ class GameBoard:
 
     def get_index_of_node(self, selected_node):
         return self.nodes.index(selected_node)
+    
 
+    def get_all_node_ids(self):
+        return list(range(0, len(self.nodes)))
+            
     # loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
     def find_available_settlements(self):
         pass
