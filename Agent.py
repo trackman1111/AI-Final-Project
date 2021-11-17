@@ -3,9 +3,9 @@ import torch
 import random
 import numpy as np
 from collections import deque
-from model import Linear_QNet, QTrainer
-#from helper import plot
-from game_control import GamePlay, Player
+from model import QNet, QTrainer
+#import helper
+from game_control import GamePlay
 #import game
 
 MAX_MEMORY = 100_000
@@ -19,7 +19,7 @@ class Agent:
         self.epsilon = 0 # randomness
         self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft()
-        self.model = Linear_QNet(180, 256, 3)
+        self.model = QNet(9,256, 182)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
 
 
@@ -67,7 +67,7 @@ class Agent:
         self.epsilon = 80 - self.n_games
         final_move = np.full(182,0)
         if random.randint(0, 200) < self.epsilon:
-            move = random.randint(0, 2)
+            move = random.randint(0, 182)
             final_move[move] = 1
         else:
             state0 = torch.tensor(state, dtype=torch.float)
@@ -79,8 +79,8 @@ class Agent:
 
 
 def train():
-    plot_scores = []
-    plot_mean_scores = []
+    plot_steps = []
+    plot_mean_steps = []
     total_score = 0
     record = 0
     agent = Agent()
@@ -112,13 +112,13 @@ def train():
                 record = score
                 agent.model.save()
 
-            print('Game', agent.n_games, 'Score', score, 'Record:', record)
+            print('Game', agent.n_games, 'Steps', score, 'Record:', record)
 
-            plot_scores.append(score)
+            plot_steps.append(score)
             total_score += score
             mean_score = total_score / agent.n_games
-            plot_mean_scores.append(mean_score)
-            print(plot_scores, plot_mean_scores)
+            plot_mean_steps.append(mean_score)
+            print(plot_steps, plot_mean_steps)
 
 
 if __name__ == '__main__':

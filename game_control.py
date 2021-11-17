@@ -17,20 +17,25 @@ class GamePlay:
 
     def play_step(self, action):
         self.frame_iteration += 0
-        type_action = np.where(action == 1)
+        type_tuple = np.where(action == 1)
+        type_action=type_tuple[0][0]
         print(type_action)
         if type_action == 0:
            self.distribute_resources()
-        elif 1 >= type_action >= 73:
+        elif 1 <= type_action <= 73:
             type_action = -1
             self.place_roads(type_action)
-        elif 74 >= type_action >= 128:
+        elif 74 <= type_action <= 128:
             type_action = -73
             self.place_settlement(type_action)
-        elif type_action <= 129:
+        elif type_action >= 129:
             type_action = -128
-            self.upgradeToCity(type_action)
+            self.upgrade_to_city(type_action)
 
+    def roll(self):
+        dice=random.randint(1,6)+random.randint(1,6)
+        
+        
     def place_settlement(self, action):
         self.game.add_settlement(self.player.create_settlement(action))
         self.score +=1
