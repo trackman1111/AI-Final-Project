@@ -120,24 +120,28 @@ class GameBoard:
 
     def initialize_first_settlements(self):
         resource = ['ORE', 'SHEEP', 'WHEAT', 'BRICK', 'WOOD']
-        self.nodes[35].value = 1
-        self.nodes[40].value = 1
-        self.edges[46].value = 1
-        self.edges[50].value = 1
+        self.add_settlement(35)
+        self.add_settlement(40)
+        self.build_road(46)
+        self.build_road(50)
 
 
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):
-        selected_node.value = 1
+        self.nodes[selected_node].value = 2
 
     # Set node value at location to 2
     def upgrade_to_city(self, selected_node):
-        selected_node.value = 2
+        self.nodes[selected_node].value = 3
 
     # Sets edge value at location to true (1)
     def build_road(self, selected_edge):
-        selected_edge.value = 1
+        self.edges[selected_edge].value = 1
+        if self.nodes[self.edges[selected_edge].node_two].value < 1:
+            self.nodes[self.edges[selected_edge].node_two].value = 1
+        if self.nodes[self.edges[selected_edge].node_one].value < 1:
+            self.nodes[self.edges[selected_edge].node_one].value = 1
 
     # Finds hexes with dice roll value not blocked by robber
     # Returns array of 4x5 with resources allocated to each player
