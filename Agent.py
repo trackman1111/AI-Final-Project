@@ -1,3 +1,4 @@
+import matplotlib
 from networkx.readwrite.graphml import GraphML
 import torch
 import random
@@ -86,6 +87,7 @@ class Agent:
 def train():
     plot_steps = []
     plot_mean_steps = []
+    plot_iterations = []
     total_steps = 0
     record = 10000
     agent = Agent()
@@ -126,10 +128,10 @@ def train():
             total_steps += game.iteration
             mean_step = total_steps / agent.n_games
             plot_mean_steps.append(mean_step)
-            print(plot_steps, plot_mean_steps)
             if agent.n_games==50:
                 break
             game.reset()
+    matplotlib.pyplot.scatter(plot_iterations, plot_mean_steps)
 
 
 if __name__ == '__main__':
