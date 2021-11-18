@@ -41,6 +41,13 @@ class GameBoard:
         self.edges = initialize_edges()
         self.initialize_first_settlements()
 
+    def reset(self):
+        for node in self.nodes:
+            node.value = 0
+        for edge in self.edges:
+            edge.value = 0
+        self.initialize_first_settlements()
+
     def randomize_game_board(self):
         hexes = []
         current_number = 0
@@ -174,8 +181,58 @@ class GameBoard:
         return list(range(0, len(self.nodes)))
 
     # loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
-    def find_available_settlements(self):
-        pass
+    def find_prospective_settlements(self):
+        no_settlement_nodes = []
+        built_locations = self.find_all_built_locations()
+
+        nodes_distances_dict = {}
+        for built_node in built_locations:
+            nodes_distances_dict = {**nodes_distances_dict, **self.get_all_nodes_within_dist(built_node)}
+            for node, distance in nodes_distances_dict.items():
+                if distance < 2:
+                    no_settlement_nodes.append(node)
+        
+        prospective_nodes = []
+        no_settlement_nodes = list(set(no_settlement_nodes))
+
+        for node in self.nodes:
+            prospective_nodes.append(node.node_id)
+
+        for node in no_settlement_nodes:
+            prospective_nodes.remove(node)
+        
+        return prospective_nodes
+
+
+    def get_all_nodes_within_dist(self, selected_node, distance = 2):
+        not_visited = self.get_all_node_ids()
+        queue = {}
+        nodes = {}
+        level = 0
+
+        not_visited.remove(selected_node.node_id)
+        nodes[selected_node.node_id] = level
+        queue[selected_node.node_id] = level
+
+        while queue: 
+            neighboring_nodes = self.get_neighboring_nodes(self.nodes[list(queue.keys())[0]])
+            level = queue[list(queue.keys())[0]] + 1
+
+            if level > distance: 
+                break
+
+            del queue[list(queue.keys())[0]]
+
+            for i in neighboring_nodes:
+                if i not in not_visited:
+                    neighboring_nodes.remove(i)
+                elif i in not_visited:
+                    not_visited.remove(i)
+
+            for node in neighboring_nodes:
+                nodes[node] = level
+                queue[node] = level  
+        return nodes
 
     def find_all_settlements(self):
         curr_settlements = []

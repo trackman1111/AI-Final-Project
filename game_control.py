@@ -91,11 +91,8 @@ class GamePlay:
 
 if __name__ == '__main__':
     game_control = GamePlay()
-    game_control.distribute_resources()
-    game_control.distribute_resources()
-    game_control.distribute_resources()
-    game_control.distribute_resources()
-    print(game_control.player.get_resources())
+    selected_node = game_control.game.nodes[28]
+    game_control.game.find_prospective_settlements()
     # for node in game_control.game.find_available_cities():
     #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
     #while game_control.score < 10:
