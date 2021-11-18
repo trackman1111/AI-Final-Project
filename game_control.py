@@ -6,6 +6,13 @@ from player import Player
 import numpy as np
 
 
+def roll():
+    dice=random.randint(1,6)+random.randint(1,6)
+    if dice ==7:
+        reward =-5
+    return int(dice)
+
+
 class GamePlay:
     def __init__(self):
         self.game = game_board.GameBoard()
@@ -15,7 +22,7 @@ class GamePlay:
         self.reward = 0
         
     def reset(self):
-        self.__init__
+        self.__init__()
 
     def play_step(self, action):
         print("Turn",self.iteration)
@@ -44,13 +51,6 @@ class GamePlay:
             print("Game over")
         return self.reward,done,self.score
 
-    def roll(self):
-        dice=random.randint(1,6)+random.randint(1,6)
-        if dice ==7:
-            reward =-5
-        return dice
-        
-        
     def place_settlement(self, action):
         self.game.add_settlement(action)
         self.player.create_settlement(action)
@@ -71,7 +71,7 @@ class GamePlay:
         self.score += 1
 
     def distribute_resources(self):
-        self.player.receive_resources(self.game.distibute_resouces(self.roll))
+        self.player.receive_resources(self.game.distribute_resouces(int(roll())))
     
 
     #while True:
@@ -86,11 +86,14 @@ class GamePlay:
 
 
 
-# if __name__ == '__main__':
-#     game_control = GamePlay()
-#     print(game_control.game.get_all_node_distances(game_control.game.find_owned_nodes()))
-#     print(game_control.game.node_path_owned_from_selected(game_control.game.nodes[1]))
-#     # for node in game_control.game.find_available_cities():
-#     #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
-#     #while game_control.score < 10:
-#         #game_control.play_step(Agent.decision())
+if __name__ == '__main__':
+    game_control = GamePlay()
+    game_control.distribute_resources()
+    game_control.distribute_resources()
+    game_control.distribute_resources()
+    game_control.distribute_resources()
+    print(game_control.player.get_resources())
+    # for node in game_control.game.find_available_cities():
+    #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
+    #while game_control.score < 10:
+        #game_control.play_step(Agent.decision())

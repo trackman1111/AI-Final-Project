@@ -173,7 +173,7 @@ class GameBoard:
     def find_available_settlements(self):
         pass
 
-    def find_available_cities(self):
+    def find_all_settlements(self):
         curr_settlements = []
         for node in self.nodes:
             if node.value == 2:
@@ -217,20 +217,45 @@ class GameBoard:
 
     # Finds hexes with dice roll value not blocked by robber
     # Returns array of 4x5 with resources allocated to each player
-    def distibute_resouces(self, dice_roll):
+    def distribute_resouces(self, dice_roll):
         resources = [0, 0, 0, 0, 0]
+        print(dice_roll)
         for curHex in self.hexes:
             if dice_roll == curHex.value:
-                for node in curHex.getNodes():
-                    if curHex.resource == 'SHEEP':
-                        resources[0] += node.value
-                    if curHex.resource == 'WHEAT':
-                        resources[1] += node.value
-                    if curHex.resource == 'WOOD':
-                        resources[2] += node.value
-                    if curHex.resource == 'BRICK':
-                        resources[3] += node.value
-                    if curHex.resource == 'ORE':
-                        resources[4] += node.value
+                for node in self.find_all_settlements():
+                    if node.hex_one == curHex:
+                        if curHex.resource == 'SHEEP':
+                            resources[0] += node.value - 1
+                        if curHex.resource == 'WHEAT':
+                            resources[1] += node.value - 1
+                        if curHex.resource == 'WOOD':
+                            resources[2] += node.value - 1
+                        if curHex.resource == 'BRICK':
+                            resources[3] += node.value - 1
+                        if curHex.resource == 'ORE':
+                            resources[4] += node.value - 1
+                    if node.hex_two == curHex:
+                        if curHex.resource == 'SHEEP':
+                            resources[0] += node.value - 1
+                        if curHex.resource == 'WHEAT':
+                            resources[1] += node.value - 1
+                        if curHex.resource == 'WOOD':
+                            resources[2] += node.value - 1
+                        if curHex.resource == 'BRICK':
+                            resources[3] += node.value - 1
+                        if curHex.resource == 'ORE':
+                            resources[4] += node.value - 1
+                    if node.hex_two == curHex:
+                        if curHex.resource == 'SHEEP':
+                            resources[0] += node.value - 1
+                        if curHex.resource == 'WHEAT':
+                            resources[1] += node.value - 1
+                        if curHex.resource == 'WOOD':
+                            resources[2] += node.value - 1
+                        if curHex.resource == 'BRICK':
+                            resources[3] += node.value - 1
+                        if curHex.resource == 'ORE':
+                            resources[4] += node.value - 1
+
 
         return resources
