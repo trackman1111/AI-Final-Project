@@ -114,11 +114,7 @@ class GameBoard:
                     found = True
                     found_node = self.nodes[node].node_id
 
-        print(node_distance_dict)
-        print(found_node)
-        print(self.bfs(node_distance_dict, selected_node.node_id, found_node))
-        path = self.get_edge_path(self.bfs(node_distance_dict, selected_node.node_id, found_node))
-        print(path)
+        return path
 
     def get_edge_path(self, input_nodes):
         path = []

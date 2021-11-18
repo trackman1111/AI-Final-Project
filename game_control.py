@@ -88,11 +88,11 @@ class GamePlay:
 
 
 
-if __name__ == '__main__':
-    game_control = GamePlay()
-    print(game_control.game.get_all_node_distances(game_control.game.find_owned_nodes()))
-    print(game_control.game.node_path_owned_from_selected(game_control.game.nodes[1]))
-    # for node in game_control.game.find_available_cities():
-    #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
-    #while game_control.score < 10:
-        #game_control.play_step(Agent.decision())
+# if __name__ == '__main__':
+#     game_control = GamePlay()
+#     print(game_control.game.get_all_node_distances(game_control.game.find_owned_nodes()))
+#     print(game_control.game.node_path_owned_from_selected(game_control.game.nodes[1]))
+#     # for node in game_control.game.find_available_cities():
+#     #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
+#     #while game_control.score < 10:
+#         #game_control.play_step(Agent.decision())
