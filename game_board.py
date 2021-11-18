@@ -201,10 +201,12 @@ class GameBoard:
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):
+        print("selected settlement is: ", selected_node)
         self.nodes[selected_node].value = 2
 
     # Set node value at location to 2
     def upgrade_to_city(self, selected_node):
+        print("selected city is: ", selected_node)
         self.nodes[selected_node].value = 3
 
     # Sets edge value at location to true (1)

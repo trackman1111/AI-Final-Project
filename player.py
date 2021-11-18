@@ -8,9 +8,9 @@ class Player:
         self.num_wood = 0
         self.num_brick = 0
         self.num_ore = 0
-        self.num_settlements=0
+        self.num_settlements=2
         self.num_cities=0
-        self.num_roads=0
+        self.num_roads=2
         self.score = 0
 
     def create_settlement(self, selected_location):
@@ -33,12 +33,12 @@ class Player:
         self.num_roads +=1
         # set edge at location to 1
 
-    def receive_resources(self, sheep, wheat, wood, brick, ore):
-        self.num_sheep += sheep
-        self.num_wheat += wheat
-        self.num_wood += wood
-        self.num_brick += brick
-        self.num_ore += ore
+    def receive_resources(self, resources):
+        self.num_sheep += resources[0]
+        self.num_wheat += resources[1]
+        self.num_wood += resources[2]
+        self.num_brick += resources[3]
+        self.num_ore += resources[4]
 
     def get_resources(self):
         current_resources = [self.num_sheep, self.num_ore, self.num_wood, self.num_wheat, self.num_brick]
