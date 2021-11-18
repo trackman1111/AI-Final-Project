@@ -86,7 +86,7 @@ class Agent:
 def train():
     plot_steps = []
     plot_mean_steps = []
-    total_score = 0
+    total_steps = 0
     record = 10000
     agent = Agent()
     game = GamePlay()
@@ -122,10 +122,10 @@ def train():
 
             print('Game', agent.n_games, 'Steps', game.iteration, 'Record:', record)
 
-            plot_steps.append(score)
-            total_score += score
-            mean_score = total_score / agent.n_games
-            plot_mean_steps.append(mean_score)
+            plot_steps.append(plot_steps)
+            total_steps += game.iteration
+            mean_step = total_steps / agent.n_games
+            plot_mean_steps.append(mean_step)
             print(plot_steps, plot_mean_steps)
             if agent.n_games==10:
                 break
