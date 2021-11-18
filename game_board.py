@@ -37,6 +37,13 @@ class GameBoard:
         self.edges = initialize_edges()
         self.initialize_first_settlements()
 
+    def reset(self):
+        for node in self.nodes:
+            node.value = 0
+        for edge in self.edges:
+            edge.value = 0
+        self.initialize_first_settlements()
+
     def randomize_game_board(self):
         hexes = []
         current_number = 0
