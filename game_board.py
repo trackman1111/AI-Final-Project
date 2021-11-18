@@ -90,6 +90,28 @@ class GameBoard:
 
         return node_distance_dict
 
+    def node_path_owned_from_selected(self, selected_node):
+        # from 29 to owned -> path of 40, 39
+        path_dict = self.get_all_node_distances(selected_node)
+        path_dict = {distance: nodes for distance, nodes in path_dict.items() if distance <= 2}
+        print(path_dict)
+        owned = []
+        for distance, nodes in path_dict.items():
+            for node in nodes:
+                if self.nodes[node].value > 0:
+                    owned.append(node)
+
+        node = set(self.get_neighboring_nodes(selected_node)) & set(self.get_neighboring_nodes(self.nodes[owned[0]]))
+
+        pass
+
+    def backtrace(parent, start, end):
+        path = [end]
+        while path[-1] != start:
+            path.append(parent[path[-1]])
+        path.reverse()
+        return path
+
     def get_neighboring_nodes(self, selected_node):
         neighboring_nodes = []
         for edge in self.edges:
