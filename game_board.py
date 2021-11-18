@@ -72,7 +72,8 @@ class GameBoard:
 
             while count <= 2 and len(current_nodes) != 0:
                 for temp_node in current_nodes:
-                    not_visited.remove(temp_node)
+                    if temp_node in not_visited:
+                        not_visited.remove(temp_node)
                 for temp_node in current_nodes:
                     for i in self.get_neighboring_nodes(self.nodes[temp_node]):
                         if i in not_visited:
