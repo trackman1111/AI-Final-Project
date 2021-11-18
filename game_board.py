@@ -69,7 +69,6 @@ class GameBoard:
             current_nodes = [node.node_id]
             neighboring_nodes = []
             count = 1
-            node_distance_dict[node.node_id] = 0
 
             while count <= 3 and len(current_nodes) != 0:
                 for temp_node in current_nodes:
@@ -91,25 +90,49 @@ class GameBoard:
         return node_distance_dict
 
     def node_path_owned_from_selected(self, selected_node):
-        # from 29 to owned -> path of 40, 39
-        path_dict = self.get_all_node_distances(selected_node)
-        path_dict = {distance: nodes for distance, nodes in path_dict.items() if distance <= 2}
-        print(path_dict)
-        owned = []
-        for distance, nodes in path_dict.items():
-            for node in nodes:
-                if self.nodes[node].value > 0:
-                    owned.append(node)
+        not_visited = self.get_all_node_ids()
+        found = False;
+        found_node = -1
+        adjacent_array = []
+        node_distance_dict = {}
+        current_nodes = [selected_node.node_id]
+        while not found:
+            for temp_node in current_nodes:
+                not_visited.remove(temp_node)
+            for temp_node in current_nodes:
+                for i in self.get_neighboring_nodes(self.nodes[temp_node]):
+                    if i in not_visited:
+                        adjacent_array.append(self.nodes[i].node_id)
+                node_distance_dict[self.nodes[temp_node].node_id] = adjacent_array
+                current_nodes.extend(adjacent_array)
+                adjacent_array = []
+                current_nodes = list(set(current_nodes))
 
-        node = set(self.get_neighboring_nodes(selected_node)) & set(self.get_neighboring_nodes(self.nodes[owned[0]]))
+            for node in current_nodes:
+                if self.nodes[node].value >= 1:
+                    found = True
+                    found_node = self.nodes[node].node_id
 
-        pass
+        print(node_distance_dict)
+        print(found_node)
+        print(self.bfs(node_distance_dict, selected_node.node_id, found_node))
 
-    def backtrace(parent, start, end):
+    def bfs(self, graph, start, end):
+        parent = {}
+        queue = [start]
+        while queue:
+            node = queue.pop(0)
+            if node == end:
+                return self.backtrace(parent, start, end)
+            for adjacent in graph.get(node, []):
+                if node not in queue:
+                    parent[adjacent] = node  # <<<<< record its parent
+                    queue.append(adjacent)
+
+    def backtrace(self, parent, start, end):
         path = [end]
         while path[-1] != start:
             path.append(parent[path[-1]])
-        path.reverse()
         return path
 
     def get_neighboring_nodes(self, selected_node):
