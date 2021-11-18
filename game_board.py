@@ -181,10 +181,15 @@ class GameBoard:
                 if distance < 2:
                     no_settlement_nodes.append(node)
         
-        prospective_nodes = self.nodes  
+        prospective_nodes = []
+        no_settlement_nodes = list(set(no_settlement_nodes))
+
+        for node in self.nodes:
+            prospective_nodes.append(node.node_id)
+
         for node in no_settlement_nodes:
-            prospective_nodes.remove(self.nodes[node])
-            
+            prospective_nodes.remove(node)
+        
         return prospective_nodes
 
 
