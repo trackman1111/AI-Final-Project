@@ -70,7 +70,7 @@ class GameBoard:
             neighboring_nodes = []
             count = 1
 
-            while count <= 3 and len(current_nodes) != 0:
+            while count <= 2 and len(current_nodes) != 0:
                 for temp_node in current_nodes:
                     not_visited.remove(temp_node)
                 for temp_node in current_nodes:
@@ -116,6 +116,26 @@ class GameBoard:
         print(node_distance_dict)
         print(found_node)
         print(self.bfs(node_distance_dict, selected_node.node_id, found_node))
+        path = self.get_edge_path(self.bfs(node_distance_dict, selected_node.node_id, found_node))
+        print(path)
+
+    def get_edge_path(self, input_nodes):
+        path = []
+        for x in range(0, len(input_nodes) - 1):
+            if self.edges[self.nodes[input_nodes[x]].edge_one].node_one == self.nodes[input_nodes[x+1]].node_id:
+                path.append(self.nodes[input_nodes[x]].edge_one)
+            if self.edges[self.nodes[input_nodes[x]].edge_one].node_two == self.nodes[input_nodes[x+1]].node_id:
+                path.append(self.nodes[input_nodes[x]].edge_one)
+            if self.edges[self.nodes[input_nodes[x]].edge_two].node_one == self.nodes[input_nodes[x+1]].node_id:
+                path.append(self.nodes[input_nodes[x]].edge_two)
+            if self.edges[self.nodes[input_nodes[x]].edge_two].node_two == self.nodes[input_nodes[x+1]].node_id:
+                path.append(self.nodes[input_nodes[x]].edge_two)
+            if self.edges[self.nodes[input_nodes[x]].edge_three].node_one == self.nodes[input_nodes[x+1]].node_id:
+                path.append(self.nodes[input_nodes[x]].edge_three)
+            if self.edges[self.nodes[input_nodes[x]].edge_three].node_two == self.nodes[input_nodes[x+1]].node_id:
+                path.append(self.nodes[input_nodes[x]].edge_three)
+        return path
+
 
     def bfs(self, graph, start, end):
         parent = {}
