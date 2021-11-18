@@ -65,7 +65,7 @@ class Agent:
 
     def get_action(self, state):
         # random moves: tradeoff exploration / exploitation
-        self.epsilon = 10 - self.n_games
+        self.epsilon = 50 - self.n_games
         final_move = np.full(180,0)
         if random.randint(0, 180) < self.epsilon:
             move = random.randint(0,179 )
@@ -127,7 +127,7 @@ def train():
             mean_step = total_steps / agent.n_games
             plot_mean_steps.append(mean_step)
             print(plot_steps, plot_mean_steps)
-            if agent.n_games==10:
+            if agent.n_games==50:
                 break
             game.reset()
 
