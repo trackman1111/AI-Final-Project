@@ -1,4 +1,4 @@
-import matplotlib
+import matplotlib.pyplot as plt
 from networkx.readwrite.graphml import GraphML
 import torch
 import random
@@ -131,7 +131,7 @@ def train():
             if agent.n_games==50:
                 break
             game.reset()
-    matplotlib.pyplot.scatter(plot_iterations, plot_mean_steps)
+    plt.scatter(plot_iterations, plot_mean_steps)
 
 
 if __name__ == '__main__':
