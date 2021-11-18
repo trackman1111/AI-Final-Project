@@ -124,14 +124,19 @@ def train():
 
             print('Game', agent.n_games, 'Steps', game.iteration, 'Record:', record)
 
-            plot_steps.append(plot_steps)
+            plot_steps.append(game.iteration)
             total_steps += game.iteration
             mean_step = total_steps / agent.n_games
             plot_mean_steps.append(mean_step)
+            plot_iterations.append(agent.n_games)
             if agent.n_games==50:
                 break
             game.reset()
-    plt.scatter(plot_iterations, plot_mean_steps)
+            
+    #print(len(plot_iterations))
+    #print(len(plot_mean_steps))
+    plt.scatter(plot_iterations, plot_steps)
+    plt.show()
 
 
 if __name__ == '__main__':
