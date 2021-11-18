@@ -6,9 +6,9 @@ import numpy as np
 
 
 def roll():
-    dice=random.randint(1,6)+random.randint(1,6)
-    if dice ==7:
-        reward =-5
+    dice = random.randint(1, 6) + random.randint(1, 6)
+    while dice == 7:
+        dice = random.randint(1,6) + random.randint(1,6)
     return int(dice)
 
 
@@ -98,8 +98,14 @@ class GamePlay():
 
 if __name__ == '__main__':
     game_control = GamePlay()
-    selected_node = game_control.game.nodes[28]
-    game_control.game.find_prospective_settlements()
+    game_control.distribute_resources()
+    game_control.distribute_resources()
+    game_control.distribute_resources()
+    game_control.distribute_resources()
+    game_control.distribute_resources()
+    game_control.distribute_resources()
+    game_control.distribute_resources()
+
     # for node in game_control.game.find_available_cities():
     #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
     #while game_control.score < 10:
