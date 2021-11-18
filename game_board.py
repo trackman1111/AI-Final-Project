@@ -13,8 +13,9 @@ def initialize_nodes(hexes):
         for line in nodestream:
             line = line.strip()
             cv = line.split(",")
-            temp.append(hex.Node(x, hexes[ord(cv[0]) - 97], hexes[ord(cv[1]) - 97], hexes[ord(cv[2]) - 97], int(cv[3]) - 1,
-                                 int(cv[4]) - 1, int(cv[5]) - 1, 0))
+            temp.append(
+                hex.Node(x, hexes[ord(cv[0]) - 97], hexes[ord(cv[1]) - 97], hexes[ord(cv[2]) - 97], int(cv[3]) - 1,
+                         int(cv[4]) - 1, int(cv[5]) - 1, 0))
             x += 1
         return temp
 
@@ -79,7 +80,8 @@ class GameBoard:
                         if i in not_visited:
                             if not self.nodes[i].node_id in node_distance_dict:
                                 node_distance_dict[self.nodes[i].node_id] = count
-                            if self.nodes[i].node_id in node_distance_dict and node_distance_dict[self.nodes[i].node_id] > count:
+                            if self.nodes[i].node_id in node_distance_dict and node_distance_dict[
+                                self.nodes[i].node_id] > count:
                                 node_distance_dict[self.nodes[i].node_id] = count
                             neighboring_nodes.append(self.nodes[i].node_id)
                 current_nodes = []
@@ -120,20 +122,19 @@ class GameBoard:
     def get_edge_path(self, input_nodes):
         path = []
         for x in range(0, len(input_nodes) - 1):
-            if self.edges[self.nodes[input_nodes[x]].edge_one].node_one == self.nodes[input_nodes[x+1]].node_id:
+            if self.edges[self.nodes[input_nodes[x]].edge_one].node_one == self.nodes[input_nodes[x + 1]].node_id:
                 path.append(self.nodes[input_nodes[x]].edge_one)
-            if self.edges[self.nodes[input_nodes[x]].edge_one].node_two == self.nodes[input_nodes[x+1]].node_id:
+            if self.edges[self.nodes[input_nodes[x]].edge_one].node_two == self.nodes[input_nodes[x + 1]].node_id:
                 path.append(self.nodes[input_nodes[x]].edge_one)
-            if self.edges[self.nodes[input_nodes[x]].edge_two].node_one == self.nodes[input_nodes[x+1]].node_id:
+            if self.edges[self.nodes[input_nodes[x]].edge_two].node_one == self.nodes[input_nodes[x + 1]].node_id:
                 path.append(self.nodes[input_nodes[x]].edge_two)
-            if self.edges[self.nodes[input_nodes[x]].edge_two].node_two == self.nodes[input_nodes[x+1]].node_id:
+            if self.edges[self.nodes[input_nodes[x]].edge_two].node_two == self.nodes[input_nodes[x + 1]].node_id:
                 path.append(self.nodes[input_nodes[x]].edge_two)
-            if self.edges[self.nodes[input_nodes[x]].edge_three].node_one == self.nodes[input_nodes[x+1]].node_id:
+            if self.edges[self.nodes[input_nodes[x]].edge_three].node_one == self.nodes[input_nodes[x + 1]].node_id:
                 path.append(self.nodes[input_nodes[x]].edge_three)
-            if self.edges[self.nodes[input_nodes[x]].edge_three].node_two == self.nodes[input_nodes[x+1]].node_id:
+            if self.edges[self.nodes[input_nodes[x]].edge_three].node_two == self.nodes[input_nodes[x + 1]].node_id:
                 path.append(self.nodes[input_nodes[x]].edge_three)
         return path
-
 
     def bfs(self, graph, start, end):
         parent = {}
@@ -165,7 +166,6 @@ class GameBoard:
     def get_index_of_node(self, selected_node):
         return self.nodes.index(selected_node)
 
-
     def get_all_node_ids(self):
         return list(range(0, len(self.nodes)))
 
@@ -180,6 +180,13 @@ class GameBoard:
                 curr_settlements.append(node)
         return curr_settlements
 
+    def find_all_built_locations(self):
+        curr_builds = []
+        for node in self.nodes:
+            if node.value >= 2:
+                curr_builds.append(node)
+        return curr_builds
+
     def find_owned_nodes(self):
         curr_nodes = []
         for node in self.nodes:
@@ -193,9 +200,6 @@ class GameBoard:
         self.add_settlement(40)
         self.build_road(46)
         self.build_road(50)
-       
-
-
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):
@@ -256,6 +260,5 @@ class GameBoard:
                             resources[3] += node.value - 1
                         if curHex.resource == 'ORE':
                             resources[4] += node.value - 1
-
 
         return resources
