@@ -83,15 +83,19 @@ class GameBoard:
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):
+        print("settlement was placed at ",selected_node)
         selected_node.value = 1
 
     # Set node value at location to 2
     def upgrade_to_city(self, selected_node):
+        print("Settlement was upgraded to city ",selected_node)
         selected_node.value = 2
 
     # Sets edge value at location to true (1)
     def build_road(self, selected_edge):
+        print("Road was built here", selected_edge)
         selected_edge.value = 1
+        
 
     # Finds hexes with dice roll value not blocked by robber
     # Returns array of 4x5 with resources allocated to each player
