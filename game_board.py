@@ -310,7 +310,7 @@ class GameBoard:
                             resources[3] += node.value - 1
                         if curHex.resource == 'ORE':
                             resources[4] += node.value - 1
-                    if node.hex_two == curHex:
+                    if node.hex_three == curHex:
                         if curHex.resource == 'SHEEP':
                             resources[0] += node.value - 1
                         if curHex.resource == 'WHEAT':
@@ -321,5 +321,5 @@ class GameBoard:
                             resources[3] += node.value - 1
                         if curHex.resource == 'ORE':
                             resources[4] += node.value - 1
-
+        print(resources)
         return resources
