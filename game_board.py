@@ -284,7 +284,7 @@ class GameBoard:
     # Returns array of 4x5 with resources allocated to each player
     def distribute_resouces(self, dice_roll):
         resources = [0, 0, 0, 0, 0]
-        print(dice_roll)
+        print("Print roll: ", dice_roll)
         for curHex in self.hexes:
             if dice_roll == curHex.value:
                 for node in self.find_all_settlements():
