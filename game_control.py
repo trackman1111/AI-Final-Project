@@ -35,7 +35,7 @@ class GamePlay:
             print("Type action for settlement: ",type_action)
             self.place_settlement(type_action)
         elif type_action >= 127 and self.player.can_build_city():
-            type_action -=126
+            type_action -=127
             print("Type action for city: ",type_action)
             self.upgrade_to_city(type_action)
         
