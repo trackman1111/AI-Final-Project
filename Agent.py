@@ -5,6 +5,7 @@ import numpy as np
 from collections import deque
 from model import QNet, QTrainer
 #import helper
+#import player
 from game_control import GamePlay
 #import game
 
@@ -19,12 +20,12 @@ class Agent:
         self.epsilon = 0 # randomness
         self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft()
-        self.model = QNet(9,256, 182)
+        self.model = QNet(9,256, 181)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
 
 
     def get_state(self, GamePlay):
-         #https://www.youtube.com/playlist?list=PLqnslRFeH2UrDh7vUmJ60YrmWd64mTTKV
+        
         
         player = GamePlay.player
         state = [
@@ -65,9 +66,9 @@ class Agent:
     def get_action(self, state):
         # random moves: tradeoff exploration / exploitation
         self.epsilon = 80 - self.n_games
-        final_move = np.full(182,0)
-        if random.randint(0, 200) < self.epsilon:
-            move = random.randint(0, 182)
+        final_move = np.full(180,0)
+        if random.randint(0, 180) < self.epsilon:
+            move = random.randint(0,179 )
             print(state)
             print("Random move is",move)
             final_move[move] = 1
@@ -89,6 +90,7 @@ def train():
     record = 0
     agent = Agent()
     game = GamePlay()
+
     while True:
         # get old state
         state_old = agent.get_state(game)
@@ -108,21 +110,24 @@ def train():
 
         if done:
             # train long memory, plot result
-            game.reset()
+            
+            #reset
+            
             agent.n_games += 1
             agent.train_long_memory()
 
-            if score > record:
-                record = score
+            if game.iteration > record:
+                record = game.iteration
                 agent.model.save()
 
-            print('Game', agent.n_games, 'Steps', score, 'Record:', record)
+            print('Game', agent.n_games, 'Steps', game.iteration, 'Record:', record)
 
             plot_steps.append(score)
             total_score += score
             mean_score = total_score / agent.n_games
             plot_mean_steps.append(mean_score)
             print(plot_steps, plot_mean_steps)
+            game=game.reset()
 
 
 if __name__ == '__main__':

@@ -8,6 +8,7 @@ hex_types = ['WOOD', 'SHEEP', 'WHEAT', 'SHEEP', 'WHEAT', 'ORE', 'WOOD', 'WHEAT',
 
 def initialize_nodes(hexes):
     with open("nodes.txt", "r") as nodestream:
+        nodestream.seek(0)
         x = 0
         temp = []
         for line in nodestream:
@@ -17,16 +18,19 @@ def initialize_nodes(hexes):
                 hex.Node(x, hexes[ord(cv[0]) - 97], hexes[ord(cv[1]) - 97], hexes[ord(cv[2]) - 97], int(cv[3]) - 1,
                          int(cv[4]) - 1, int(cv[5]) - 1, 0))
             x += 1
+        nodestream.close()
         return temp
 
 
 def initialize_edges():
     with open("edges.txt", "r") as edgestream:
+        edgestream.seek(0)
         temp = []
         for line in edgestream:
             line = line.strip()
             cv = line.split(",")
             temp.append(hex.Edge(int(cv[0]) - 1, int(cv[1]) - 1, 0))
+        edgestream.close()
         return temp
 
 

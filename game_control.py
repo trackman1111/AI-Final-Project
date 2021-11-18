@@ -1,6 +1,5 @@
 import random
-#mport enum
-#import Agent
+
 import game_board
 from player import Player
 import numpy as np
@@ -15,14 +14,16 @@ def roll():
 
 class GamePlay:
     def __init__(self):
+        self.reset()
+        
+    def reset(self):
         self.game = game_board.GameBoard()
         self.player = Player()
         self.score = self.player.score
         self.iteration = 0
         self.reward = 0
-        
-    def reset(self):
-        self.__init__()
+ 
+
 
     def play_step(self, action):
         print("Turn",self.iteration)
@@ -31,7 +32,7 @@ class GamePlay:
         type_action=int(type_tuple[0][0])
         #print(type(type_action))
         print("Type before subtraction",type_action)
-        #if type_action == 0:
+        #if type_action == 0
         self.distribute_resources()
         if 0 <= type_action <= 71 and self.player.can_build_road():
             #type_action -=1
@@ -41,10 +42,12 @@ class GamePlay:
             type_action -= 72
             print("Type action for settlement: ",type_action)
             self.place_settlement(type_action)
-        elif type_action >= 127 and self.player.can_build_city():
-            type_action -=127
+        elif type_action >= 126 and self.player.can_build_city():
+            type_action -=126
             print("Type action for city: ",type_action)
             self.upgrade_to_city(type_action)
+        elif type_action == 181:
+            print("end turn")
         
         done=bool(self.score==10)
         if(done):
