@@ -170,11 +170,22 @@ class GameBoard:
         return list(range(0, len(self.nodes)))
 
     # loop through nodes and determine which ones are 2 away from settlement, return distance in roads and resources
-     def find_available_settlements(self, selected_node):
-        nodes_distances = self.get_all_nodes_within_dist(selected_node)
+    def find_prospective_settlements(self):
+        no_settlement_nodes = []
+        built_locations = self.find_all_built_locations()
 
-
-        pass
+        nodes_distances_dict = {}
+        for built_node in built_locations:
+            nodes_distances_dict = {**nodes_distances_dict, **self.get_all_nodes_within_dist(built_node)}
+            for node, distance in nodes_distances_dict.items():
+                if distance < 2:
+                    no_settlement_nodes.append(node)
+        
+        prospective_nodes = self.nodes  
+        for node in no_settlement_nodes:
+            prospective_nodes.remove(self.nodes[node])
+            
+        return prospective_nodes
 
 
     def get_all_nodes_within_dist(self, selected_node, distance = 2):
@@ -205,7 +216,6 @@ class GameBoard:
             for node in neighboring_nodes:
                 nodes[node] = level
                 queue[node] = level  
-        print(nodes)
         return nodes
 
     def find_all_settlements(self):
