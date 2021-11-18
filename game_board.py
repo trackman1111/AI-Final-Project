@@ -287,7 +287,7 @@ class GameBoard:
         print("Print roll: ", dice_roll)
         for curHex in self.hexes:
             if dice_roll == curHex.value:
-                for node in self.find_all_settlements():
+                for node in self.find_all_built_locations():
                     if node.hex_one == curHex:
                         if curHex.resource == 'SHEEP':
                             resources[0] += node.value - 1
@@ -321,5 +321,5 @@ class GameBoard:
                             resources[3] += node.value - 1
                         if curHex.resource == 'ORE':
                             resources[4] += node.value - 1
-        print(resources)
+        #print(resources)
         return resources

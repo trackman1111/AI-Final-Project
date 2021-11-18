@@ -57,31 +57,36 @@ class GamePlay():
         done=bool(self.score==10)
         if(done):
             print("Game over")
+            self.reward=self.iteration-100
         return self.reward,done,self.score
 
     def place_settlement(self, action):
         self.game.add_settlement(action)
         self.player.create_settlement(action)
         self.score +=1
-        reward = +5
-        return reward
+        self.reward -= 5
+        
 
     def upgrade_to_city(self, action):
         self.game.upgrade_to_city(action)
         self.player.upgrade_to_city(action)
         self.score += 1
-        reward =+ 10
-        return reward
+        self.reward -= 10
+        
 
     def place_roads(self, action):
         self.game.build_road(action)
         self.player.build_road(action)
-        reward =+ 1
-        return reward
+    
+        
         
 
     def distribute_resources(self):
-        self.player.receive_resources(self.game.distribute_resouces(int(roll())))
+        resources = self.game.distribute_resouces(int(roll()))
+        self.player.receive_resources(resources)
+        for resource in resources:
+            self.reward -= 1
+        
     
 
     #while True:

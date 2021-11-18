@@ -71,12 +71,14 @@ class Agent:
         if random.randint(0, 180) < self.epsilon:
             move = random.randint(0,179 )
             print(state)
+            print(state[3])
             print("Random move is",move)
             final_move[move] = 1
         else:
             state0 = torch.tensor(state, dtype=torch.float)
             prediction = self.model(state0)
             print(state)
+            print(state[3])
             move = torch.argmax(prediction).item()
             print("Model move is",move)
             final_move[move] = 1
@@ -124,21 +126,22 @@ def train():
                 agent.model.save()
 
             print('Game', agent.n_games, 'Steps', game.iteration, 'Record:', record)
-            
             total_rewards.append(reward)
             plot_steps.append(game.iteration)
             total_steps += game.iteration
             mean_step = total_steps / agent.n_games
             plot_mean_steps.append(mean_step)
             plot_iterations.append(agent.n_games)
-            if agent.n_games==10:
+            
+            if agent.n_games==75:
                 break
             game.reset()
             
     #print(len(plot_iterations))
     #print(len(plot_mean_steps))
-    plt.scatter(plot_iterations, plot_steps)
-    plt.scatter(plot_iterations,total_rewards)
+    plt.scatter(plot_iterations, plot_mean_steps)
+    #plt.scatter(plot_iterations,plot_steps)
+    #plt.scatter(plot_iterations,total_rewards)
     plt.show()
 
 
