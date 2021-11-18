@@ -15,14 +15,11 @@ class GamePlay:
         self.reward = 0
         
     def reset(self):
-        del self.game
-        del self.player
-        self.player = game_board.GameBoard()
-        self.game = Player()
+        self.__init__
 
     def play_step(self, action):
         print("Turn",self.iteration)
-        self.iteration += 0
+        self.iteration += 1
         type_tuple = np.where(action == 1)
         type_action=int(type_tuple[0][0])
         #print(type(type_action))
@@ -43,6 +40,8 @@ class GamePlay:
             self.upgrade_to_city(type_action)
         
         done=bool(self.score==10)
+        if(done):
+            print("Game over")
         return self.reward,done,self.score
 
     def roll(self):
@@ -53,7 +52,6 @@ class GamePlay:
         
         
     def place_settlement(self, action):
-        
         self.game.add_settlement(action)
         self.player.create_settlement(action)
         self.score +=1

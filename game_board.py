@@ -193,6 +193,7 @@ class GameBoard:
         self.add_settlement(40)
         self.build_road(46)
         self.build_road(50)
+       
 
 
 
