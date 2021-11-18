@@ -68,6 +68,7 @@ class Agent:
         final_move = np.full(182,0)
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 182)
+            print("Move is",move)
             final_move[move] = 1
         else:
             state0 = torch.tensor(state, dtype=torch.float)
