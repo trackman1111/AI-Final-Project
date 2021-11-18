@@ -52,8 +52,10 @@ class GamePlay:
 
 if __name__ == '__main__':
     game_control = GamePlay()
-    for nodes in game_control.game.nodes:
-        print(nodes.value)
+
+    game_control.game.node_path_owned_from_selected(game_control.game.nodes[30])
+    # for nodes in game_control.game.nodes:
+    #     print(nodes.value)
     # for node in game_control.game.find_available_cities():
     #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)
     #while game_control.score < 10:
