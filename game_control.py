@@ -29,15 +29,15 @@ class GamePlay:
         print("Type before subtraction",type_action)
         #if type_action == 0:
         self.distribute_resources()
-        if 0 <= type_action <= 71:
+        if 0 <= type_action <= 71 and self.player.can_build_road():
             #type_action -=1
             print("Type action for road: ",type_action)
             self.place_roads(type_action)
-        elif 72 <= type_action <= 125:
+        elif 72 <= type_action <= 125 and self.player.can_build_settlement():
             type_action -= 72
             print("Type action for settlement: ",type_action)
             self.place_settlement(type_action)
-        elif type_action >= 127:
+        elif type_action >= 127 and self.player.can_build_city():
             type_action -=126
             print("Type action for city: ",type_action)
             self.upgrade_to_city(type_action)
