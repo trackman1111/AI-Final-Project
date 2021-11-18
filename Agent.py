@@ -32,7 +32,7 @@ class Agent:
             player.num_settlements,
             player.num_cities,
             player.num_roads,
-            player.score,
+            GamePlay.score,
             player.num_wood,
             player.num_sheep,
             player.num_brick,
@@ -68,12 +68,15 @@ class Agent:
         final_move = np.full(182,0)
         if random.randint(0, 200) < self.epsilon:
             move = random.randint(0, 182)
-            print("Move is",move)
+            print(state)
+            print("Random move is",move)
             final_move[move] = 1
         else:
             state0 = torch.tensor(state, dtype=torch.float)
             prediction = self.model(state0)
+            print(state)
             move = torch.argmax(prediction).item()
+            print("Model move is",move)
             final_move[move] = 1
 
         return final_move

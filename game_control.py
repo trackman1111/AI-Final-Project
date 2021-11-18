@@ -21,24 +21,24 @@ class GamePlay:
         self.game = Player()
 
     def play_step(self, action):
-        #print("Turn",self.iteration)
+        print("Turn",self.iteration)
         self.iteration += 0
         type_tuple = np.where(action == 1)
         type_action=int(type_tuple[0][0])
         #print(type(type_action))
         print("Type before subtraction",type_action)
-        if type_action == 0:
-           self.distribute_resources()
-        elif 1 <= type_action <= 73:
-            type_action -=1
+        #if type_action == 0:
+        self.distribute_resources()
+        if 0 <= type_action <= 71:
+            #type_action -=1
             print("Type action for road: ",type_action)
             self.place_roads(type_action)
-        elif 74 <= type_action <= 128:
-            type_action -= 74
+        elif 72 <= type_action <= 125:
+            type_action -= 72
             print("Type action for settlement: ",type_action)
             self.place_settlement(type_action)
-        elif type_action >= 129:
-            type_action -=129
+        elif type_action >= 127:
+            type_action -=126
             print("Type action for city: ",type_action)
             self.upgrade_to_city(type_action)
         
@@ -47,9 +47,13 @@ class GamePlay:
 
     def roll(self):
         dice=random.randint(1,6)+random.randint(1,6)
+        if dice ==7:
+            reward =-5
+        return dice
         
         
     def place_settlement(self, action):
+        
         self.game.add_settlement(action)
         self.player.create_settlement(action)
         self.score +=1
