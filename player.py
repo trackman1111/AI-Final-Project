@@ -12,6 +12,18 @@ class Player:
         self.num_cities=0
         self.num_roads=2
         self.score = 0
+        
+    def refresh(self):
+        self.num_sheep = 1
+        self.num_wheat = 1
+        self.num_wood = 1
+        self.num_brick = 1
+        self.num_ore = 2
+        self.num_settlements=2
+        self.num_cities=0
+        self.num_roads=2
+        self.score = 0
+
 
     def create_settlement(self, selected_location):
         self.num_sheep -= 1

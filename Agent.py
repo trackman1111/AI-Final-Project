@@ -20,14 +20,14 @@ class Agent:
         self.epsilon = 0 # randomness
         self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen=MAX_MEMORY) # popleft()
-        self.model = QNet(9,256, 181)
+        self.model = QNet(9,256, 180)
         self.trainer = QTrainer(self.model, lr=LR, gamma=self.gamma)
 
-
+    
     def get_state(self, GamePlay):
         
-        
         player = GamePlay.player
+        
         state = [
             
             player.num_settlements,
@@ -65,7 +65,7 @@ class Agent:
 
     def get_action(self, state):
         # random moves: tradeoff exploration / exploitation
-        self.epsilon = 80 - self.n_games
+        self.epsilon = 10 - self.n_games
         final_move = np.full(180,0)
         if random.randint(0, 180) < self.epsilon:
             move = random.randint(0,179 )
@@ -87,7 +87,7 @@ def train():
     plot_steps = []
     plot_mean_steps = []
     total_score = 0
-    record = 0
+    record = 10000
     agent = Agent()
     game = GamePlay()
 
@@ -116,7 +116,7 @@ def train():
             agent.n_games += 1
             agent.train_long_memory()
 
-            if game.iteration > record:
+            if game.iteration <  record:
                 record = game.iteration
                 agent.model.save()
 
@@ -127,7 +127,9 @@ def train():
             mean_score = total_score / agent.n_games
             plot_mean_steps.append(mean_score)
             print(plot_steps, plot_mean_steps)
-            game=game.reset()
+            if agent.n_games==10:
+                break
+            game.reset()
 
 
 if __name__ == '__main__':

@@ -12,13 +12,18 @@ def roll():
     return int(dice)
 
 
-class GamePlay:
+class GamePlay():
     def __init__(self):
-        self.reset()
+        self.game=game_board.GameBoard()
+        self.player = Player()
+        self.score = self.player.score
+        self.iteration = 0
+        self.reward = 0
+ 
         
     def reset(self):
-        self.game = game_board.GameBoard()
-        self.player = Player()
+        self.game.reset()
+        self.player.refresh()
         self.score = self.player.score
         self.iteration = 0
         self.reward = 0
