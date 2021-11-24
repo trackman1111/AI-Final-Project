@@ -1,7 +1,8 @@
+import gym
+from gym.spaces import Box,Discrete
 import random
-
-import game_board
-from player import Player
+from . import game_board
+from . player import Player
 import numpy as np
 
 
@@ -12,11 +13,20 @@ def roll():
     return int(dice)
 
 
-class GamePlay():
+class CatanPlay(gym.Env):
+    metadata = {'render.modes':['console']}
+    
     def __init__(self):
         self.game=game_board.GameBoard()
         self.player = Player()
+        self.observation_space = Box(low=[self.player.num_settlements,self.player.num_cities,
+                                  self.player.num_roads, self.player.score,self.player.num_sheep,
+                                  self.player.num_wheat,self.player.num_wood,self.player.num_wood,self.player.num_ore],high=[5,4,15,10,15,15,15,15,15],dtype=int)
+        self.action_space= Discrete(180)
         self.score = self.player.score
+        self.state = [self.player.num_settlements,self.player.num_cities,
+                                  self.player.num_roads, self.player.score,self.player.num_sheep,
+                                  self.player.num_wheat,self.player.num_wood,self.player.num_wood,self.player.num_ore] 
         self.iteration = 0
         self.reward = 0
  
@@ -25,6 +35,9 @@ class GamePlay():
         self.game.reset()
         self.player.refresh()
         self.score = self.player.score
+        self.state = [self.player.num_settlements,self.player.num_cities,
+                                  self.player.num_roads, self.player.score,self.player.num_sheep,
+                                  self.player.num_wheat,self.player.num_wood,self.player.num_wood,self.player.num_ore] 
         self.iteration = 0
         self.reward = 0
  
@@ -51,14 +64,14 @@ class GamePlay():
             type_action -=126
             print("Type action for city: ",type_action)
             self.upgrade_to_city(type_action)
-        elif type_action == 181:
-            print("end turn")
+        #elif type_action == 181:
+            #print("end turn")
         
         done=bool(self.score==10)
         if(done):
             print("Game over")
             self.reward=self.iteration-100
-        return self.reward,done,self.score
+        return self.state,self.reward,done
 
     def place_settlement(self, action):
         self.game.add_settlement(action)
@@ -101,7 +114,7 @@ class GamePlay():
 
 
 
-if __name__ == '__main__':
+""" if __name__ == '__main__':
     game_control = GamePlay()
     game_control.distribute_resources()
     game_control.distribute_resources()
@@ -109,7 +122,7 @@ if __name__ == '__main__':
     game_control.distribute_resources()
     game_control.distribute_resources()
     game_control.distribute_resources()
-    game_control.distribute_resources()
+    game_control.distribute_resources() """
 
     # for node in game_control.game.find_available_cities():
     #     print(node.hex_one.resource + node.hex_two.resource + node.hex_three.resource)

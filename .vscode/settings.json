@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./CatanEnv/Catan_Env/envs"
+    ]
+}

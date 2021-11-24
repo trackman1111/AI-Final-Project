@@ -1,5 +1,5 @@
 import random
-import hex
+from . import hex
 
 initial_numbers = [5, 2, 6, 3, 8, 10, 9, 12, 11, 4, 8, 10, 9, 4, 5, 6, 3, 11]
 hex_types = ['WOOD', 'SHEEP', 'WHEAT', 'SHEEP', 'WHEAT', 'ORE', 'WOOD', 'WHEAT', 'ORE', 'BRICK', 'SAND', 'BRICK', 'ORE',
@@ -264,7 +264,7 @@ class GameBoard:
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):
-        print("selected settlement is: ", selected_node)
+        print("selected settlement is: ", self.nodes[selected_node])
         self.nodes[selected_node].value = 2
 
     # Set node value at location to 2
@@ -279,6 +279,7 @@ class GameBoard:
             self.nodes[self.edges[selected_edge].node_two].value = 1
         if self.nodes[self.edges[selected_edge].node_one].value < 1:
             self.nodes[self.edges[selected_edge].node_one].value = 1
+        print(self.edges[selected_edge])
 
     # Finds hexes with dice roll value not blocked by robber
     # Returns array of 4x5 with resources allocated to each player
