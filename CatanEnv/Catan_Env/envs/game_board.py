@@ -7,7 +7,7 @@ hex_types = ['WOOD', 'SHEEP', 'WHEAT', 'SHEEP', 'WHEAT', 'ORE', 'WOOD', 'WHEAT',
 
 
 def initialize_nodes(hexes):
-    with open("nodes.txt", "r") as nodestream:
+    with open("CatanEnv/Catan_Env/envs/nodes.txt", "r") as nodestream:
         nodestream.seek(0)
         x = 0
         temp = []
@@ -23,7 +23,7 @@ def initialize_nodes(hexes):
 
 
 def initialize_edges():
-    with open("edges.txt", "r") as edgestream:
+    with open("CatanEnv/Catan_Env/envs/edges.txt", "r") as edgestream:
         edgestream.seek(0)
         temp = []
         for line in edgestream:
@@ -264,7 +264,7 @@ class GameBoard:
 
     # Set node value at location to 1
     def add_settlement(self, selected_node):
-        print("selected settlement is: ", self.nodes[selected_node])
+        print("selected settlement is: ", selected_node)
         self.nodes[selected_node].value = 2
 
     # Set node value at location to 2
@@ -279,13 +279,13 @@ class GameBoard:
             self.nodes[self.edges[selected_edge].node_two].value = 1
         if self.nodes[self.edges[selected_edge].node_one].value < 1:
             self.nodes[self.edges[selected_edge].node_one].value = 1
-        print(self.edges[selected_edge])
+        print("You built a road: ",selected_edge)
 
     # Finds hexes with dice roll value not blocked by robber
     # Returns array of 4x5 with resources allocated to each player
     def distribute_resouces(self, dice_roll):
         resources = [0, 0, 0, 0, 0]
-        print("Print roll: ", dice_roll)
+        print("Print dice roll: ", dice_roll)
         for curHex in self.hexes:
             if dice_roll == curHex.value:
                 for node in self.find_all_built_locations():

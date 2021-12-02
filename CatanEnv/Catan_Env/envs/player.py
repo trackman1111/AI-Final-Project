@@ -22,7 +22,7 @@ class Player:
         self.num_settlements=2
         self.num_cities=0
         self.num_roads=2
-        self.score = 0
+        self.score = 2
 
 
     def create_settlement(self, selected_location):
@@ -31,12 +31,14 @@ class Player:
         self.num_wood -= 1
         self.num_brick -= 1
         self.num_settlements += 1
+        self.score+=1
         # set node at location to 1
 
     def upgrade_to_city(self, locations):
         self.num_wheat -= 2
         self.num_ore -= 3
         self.num_cities += 1
+        self.score+=1
         # set node at location to 1
 
     def build_road(self, locations):
