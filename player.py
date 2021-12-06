@@ -22,7 +22,7 @@ class Player:
         self.num_settlements=2
         self.num_cities=0
         self.num_roads=2
-        self.score = 0
+        self.score = 2
 
 
     def create_settlement(self, selected_location):

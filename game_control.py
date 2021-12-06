@@ -41,15 +41,15 @@ class GamePlay():
         self.distribute_resources()
         if 0 <= type_action <= 71 and self.player.can_build_road():
             #type_action -=1
-            print("Type action for road: ",type_action)
+            #print("Type action for road: ",type_action)
             self.place_roads(type_action)
         elif 72 <= type_action <= 125 and self.player.can_build_settlement():
             type_action -= 72
-            print("Type action for settlement: ",type_action)
+            #print("Type action for settlement: ",type_action)
             self.place_settlement(type_action)
         elif type_action >= 126 and self.player.can_build_city():
             type_action -=126
-            print("Type action for city: ",type_action)
+            #print("Type action for city: ",type_action)
             self.upgrade_to_city(type_action)
         elif type_action == 181:
             print("end turn")
@@ -57,26 +57,39 @@ class GamePlay():
         done=bool(self.score==10)
         if(done):
             print("Game over")
-            self.reward=self.iteration-100
+            #self.reward=self.iteration-100
+            if self.iteration<=50:
+                self.reward+=self.iteration
+                self.reward+=100000
+            elif 50<self.iteration<=100:
+                self.reward-=self.iteration
+                self.reward-=20000
+            elif 100<self.iteration<=200:
+                self.reward-=self.iteration
+                self.reward-=40000
+            else:
+                self.reward-=10000
+
         return self.reward,done,self.score
 
     def place_settlement(self, action):
         self.game.add_settlement(action)
         self.player.create_settlement(action)
         self.score +=1
-        self.reward -= 5
+        self.reward += 50
         
 
     def upgrade_to_city(self, action):
         self.game.upgrade_to_city(action)
         self.player.upgrade_to_city(action)
         self.score += 1
-        self.reward -= 10
+        self.reward += 100
         
 
     def place_roads(self, action):
         self.game.build_road(action)
         self.player.build_road(action)
+        self.reward+=1
     
         
         
@@ -85,7 +98,7 @@ class GamePlay():
         resources = self.game.distribute_resouces(int(roll()))
         self.player.receive_resources(resources)
         for resource in resources:
-            self.reward -= 1
+            self.reward += 5
         
     
 

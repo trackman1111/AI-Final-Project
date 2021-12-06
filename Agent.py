@@ -107,6 +107,9 @@ def train():
         # perform move and get new state
         reward, done, score = game.play_step(final_move)
         state_new = agent.get_state(game)
+        
+        if game.iteration>1000:
+            done=True
 
         # train short memory
         agent.train_short_memory(state_old, final_move, reward, state_new, done)
@@ -128,12 +131,7 @@ def train():
 
             print('Game', agent.n_games, 'Steps', game.iteration, 'Record:', record)
 
-            if agent.n_games > 5:
-                moving_average = 0
-                for x in range(0,5):
-                    moving_average += plot_steps[agent.n_games - x]
-                moving_average /= 5
-                plot_moving_average.append(moving_average)
+            
             total_rewards.append(reward)
             plot_steps.append(game.iteration)
             total_steps += game.iteration
@@ -141,15 +139,17 @@ def train():
             plot_mean_steps.append(mean_step)
             plot_iterations.append(agent.n_games)
             
-            if agent.n_games==75:
+            if agent.n_games==50:
                 break
             game.reset()
             
-    #print(len(plot_iterations))
-    #print(len(plot_mean_steps))
-    plt.scatter(plot_iterations, plot_moving_average)
+    # print(len(plot_iterations))
+    # print(len(plot_mean_steps))
+    #plt.scatter(plot_iterations, plot_moving_average)
     #plt.scatter(plot_iterations,total_rewards)
-    plt.show()
+    #plt.scatter(plot_iterations,plot_mean_steps)
+    # plt.scatter(plot_iterations,plot_steps)
+    # plt.show()
 
 
 if __name__ == '__main__':
